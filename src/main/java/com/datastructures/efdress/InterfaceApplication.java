@@ -1,4 +1,4 @@
-package com.datastructures.efdressfx;
+package com.datastructures.efdress;
 
 import javafx.application.Application;
 // import javafx.fxml.FXMLLoader;
