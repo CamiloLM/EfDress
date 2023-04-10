@@ -35,7 +35,7 @@ return "None for now";
 
 
         stage.show();
-
+/*
 
         grid2.add(new Label("What kind of item is it?"), 0, 0);
         grid2.add(addItemC2, 1, 0);
@@ -128,7 +128,7 @@ return "None for now";
         };
 
         // when button is pressed
-      /*  prevSceneB.setOnAction(gobackEvent);
+      *//*  prevSceneB.setOnAction(gobackEvent);
         prevSceneB.setOnAction(e -> stage.setScene(newItScene1));
         GridPane grid1 = new GridPane();
         grid1.setVgap(4);
