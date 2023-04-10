@@ -1,4 +1,4 @@
-package com.example.efdressfx;
+package efdressfx;
 
 import javafx.application.Application;
 // import javafx.fxml.FXMLLoader;
