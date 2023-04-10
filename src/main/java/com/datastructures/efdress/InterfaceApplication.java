@@ -19,7 +19,7 @@ import javafx.scene.Group;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class InterfaceApplication extends Application {
 
 
 
