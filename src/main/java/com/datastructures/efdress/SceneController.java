@@ -1,42 +1,43 @@
 package com.datastructures.efdress;
 
 import javafx.application.Application;
-// import javafx.fxml.FXMLLoader;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-//me
-import javafx.scene.layout.StackPane;
-
-
 import java.io.IOException;
+import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 
-public class InterfaceApplication extends Application {
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Group;
+public class SceneController {
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
+    public void ToSelect(ActionEvent exa) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Select.fxml"));
+        stage = (Stage)((Node)exa.getSource()).getScene().getWindow();
 
 
+        ComboBox addItemC2 = new ComboBox();
 
-    public String addItem(StackPane root){
-return "None for now";
-    }
-    @Override
+        Scene newItScene2= new Scene(new Group(), 500, 400);
+        Button prevSceneB= new Button("Go back");
 
-    public void start(Stage stage) throws IOException {
-        // Scene new item (type)
-        Parent root = FXMLLoader.load(getClass().getResource("InterfaceApplication.fxml"));
-        Scene scene = new Scene(root,1280,720);
-        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-        stage.setTitle("Hello!");
-        stage.setScene(scene);
-
-
-
-        stage.show();
-/*
-
+        GridPane grid2 = new GridPane();
+        grid2.setVgap(4);
+        grid2.setHgap(10);
+        grid2.setPadding(new Insets(5, 5, 5, 5));
         grid2.add(new Label("What kind of item is it?"), 0, 0);
         grid2.add(addItemC2, 1, 0);
         grid2.add(prevSceneB, 1, 1);
@@ -128,8 +129,8 @@ return "None for now";
         };
 
         // when button is pressed
-      *//*  prevSceneB.setOnAction(gobackEvent);
-        prevSceneB.setOnAction(e -> stage.setScene(newItScene1));
+        prevSceneB.setOnAction(gobackEvent);
+        prevSceneB.setOnAction(event -> stage.setScene(newItScene1));
         GridPane grid1 = new GridPane();
         grid1.setVgap(4);
         grid1.setHgap(10);
@@ -146,11 +147,20 @@ return "None for now";
         VBox layout2= new VBox(20);
         layout2.getChildren().addAll(addItemb);
         Scene mainScene= new Scene(layout2,500,400);
-*/
 
+
+
+
+        /*
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml")); //Done here
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);//Done here
+        */
+        stage.setTitle("Hello!");
+
+        scene = new Scene(root);
+        stage.setScene(mainScene);
+        stage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
 }
