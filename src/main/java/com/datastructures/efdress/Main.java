@@ -1,15 +1,16 @@
 package com.datastructures.efdress;
 
+/*
 import javafx.application.Application;
-// import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
+*/
 
-// import javafx.scene.layout.StackPane;
-
-
+import java.util.function.Supplier;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Random;
@@ -138,6 +139,15 @@ public class Main {
         return ropa;
     }
 
+    public static void medirTiempo(LinkedList<Articulo> miRopa) {
+        int limite = 1000;
+        miRopa = generarDatosPrueba(limite);
+
+        long startTime = System.currentTimeMillis();
+        guardarObjeto(miRopa);
+        long endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime + "ms.");
+    }
 
     /*
         @Override
@@ -279,6 +289,7 @@ public class Main {
             System.out.println("5. Guardar ropa en memoria");
             System.out.println("6. Cargar ropa desde memoria");
             System.out.println("7. Generar datos de prueba");
+            System.out.println("8. Medir tiempo de función");
             System.out.println("0. Salir\n");
 
             option = scanner.nextInt();
@@ -324,7 +335,10 @@ public class Main {
                     System.out.println("Se van a generar articulos de la parte superior de forma semi-aleatoria");
                     System.out.println("Ingrese la cantidad de datos que quiere generar:");
                     int limite = scanner.nextInt();
-                    miRopa = generarDatosPrueba(100);
+                    miRopa = generarDatosPrueba(limite);
+                    break;
+                case 8:
+                    medirTiempo(miRopa);
                     break;
                 case 0:
                     System.out.println("Hasta luego");
