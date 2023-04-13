@@ -8,28 +8,13 @@ import java.util.HashMap;
  * @author calon
  */
 public class Inferior extends Articulo {
-    private int talla;
-    private String estampado;
-    
-    public Inferior(String nombre, String material, HashMap<String, Color> paletaColores,
-            String[] ocasion, String tipo, String ubicacion) {
-        super(nombre, material, paletaColores, ocasion, tipo, ubicacion);
+    public Inferior(int id, String nombre, String material, String ocasion, String tipo, String ubicacion) {
+        super(id, nombre, material, ocasion, tipo, ubicacion);
     }
 
-    public int getTalla() {
-        return talla;
+    public Inferior() {
+        super();
     }
 
-    public void setTalla(int talla) {
-        this.talla = talla;
-    }
-
-    public String getEstampado() {
-        return estampado;
-    }
-
-    public void setEstampado(String estampado) {
-        this.estampado = estampado;
-    }
     
 }

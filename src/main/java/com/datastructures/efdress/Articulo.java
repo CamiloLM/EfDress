@@ -1,51 +1,57 @@
 package com.datastructures.efdress;
 
-import java.awt.Color;
-import java.util.HashMap;
+import java.io.Serializable;
+import java.util.Scanner;
 
 /**
  * Clase basica de un articulo de ropa
- * nombre: Nombre personalizado del articulo, si no se da una se tiene que crear automaticamente
- * paletaColores: Paleta de colores que tiene cada articulo
+ * id: Identiicador unico del objeto
+ * nombre: Nombre personalizado del articulo
  * material: Material del que esta hecho
  * ocasion: Para que ocasion se usa el articulo, por ejemplo formal, deportiva, etc
  * tipo: La subclase que diferencia al articulo de los demas, por ejemplo camisa, chaqueta, etc
  * ubicacion: La dirrecion al archivo que contiene la imagen del articulo
  * @author Camilo Londoño Moreno
  */
-abstract public class Articulo {
+abstract public class Articulo implements Serializable {
+    private int id;
     private String nombre;
     private String material;
-    private HashMap<String, Color> paletaColores;
-    private String[] ocasion;
+    private String ocasion;
     private String tipo;
     private String ubicacion;
 
     // Constructor si se dan todos los parametros
-    public Articulo(String nombre, String material, HashMap<String, Color> paletaColores,
-            String[] ocasion, String tipo, String ubicacion) {
+    public Articulo(int id, String nombre, String material, String ocasion, String tipo, String ubicacion) {
+        this.id = id;
         this.nombre = nombre;
         this.material = material;
-        this.paletaColores = paletaColores;
         this.ocasion = ocasion;
         this.tipo = tipo;
         this.ubicacion = ubicacion;
     }
-    
-    // Constructor si no se especifica el nombre del articulo
-    public Articulo(String material, HashMap<String, Color> paletaColores,
-            String[] ocasion, String tipo, String ubicacion) {
-        // Se construye un nombre a partir del tipo y los colores
-        if (!tipo.isEmpty() && !paletaColores.isEmpty()){
-            this.nombre = tipo + paletaColores.keySet().toString();
-        } else {
-            this.nombre = "Articulo sin nombrar";
-        }
-        this.material = material;
-        this.paletaColores = paletaColores;
-        this.ocasion = ocasion;
-        this.tipo = tipo;
-        this.ubicacion = ubicacion;
+
+    public Articulo() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ingrese los datos que se piden acontinuacion separados por comas:");
+        System.out.println("Id, nombre, material, ocasion, tipo, ubicacion. ");
+        String entry = scanner.nextLine();
+        String[] line = entry.split(",");
+
+        this.setId(Integer.parseInt(line[0]));
+        this.setNombre(line[1]);
+        this.setMaterial(line[2]);
+        this.setOcasion(line[3]);
+        this.setTipo(line[4]);
+        this.setUbicacion(line[5]);
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getNombre() {
@@ -56,14 +62,6 @@ abstract public class Articulo {
         this.nombre = nombre;
     }
 
-    public HashMap<String, Color> getPaletaColores() {
-        return paletaColores;
-    }
-
-    public void setPaletaColores(HashMap<String, Color> paletaColores) {
-        this.paletaColores = paletaColores;
-    }
-
     public String getMaterial() {
         return material;
     }
@@ -72,16 +70,11 @@ abstract public class Articulo {
         this.material = material;
     }
 
-    public String[] getOcasion() {
+    public String getOcasion() {
         return ocasion;
     }
 
-    public void setOcasion(String[] ocasion) {
-        /**
-         * Posibles categorias de ocaciones:
-         * De diario, Formal, Deportiva, Dormir, Fiesta
-         * Traje de baño, Verano/Calor, Invierno/Frio
-        */
+    public void setOcasion(String ocasion) {
         this.ocasion = ocasion;
     }
 
@@ -100,5 +93,17 @@ abstract public class Articulo {
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
-    
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ID: ").append(getId())
+                .append(", Nombre: ").append(getNombre())
+                .append(", Material: ").append(getMaterial())
+                .append(", Ocasion: ").append(getOcasion())
+                .append(", Tipo: ").append(getTipo())
+                .append(", Ubicación: ").append(getUbicacion());
+        return sb.toString();
+    }
+
 }
