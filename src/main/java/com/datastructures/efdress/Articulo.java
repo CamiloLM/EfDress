@@ -14,12 +14,17 @@ import java.util.Scanner;
  * @author Camilo Londoño Moreno
  */
 abstract public class Articulo implements Serializable {
-    private int id;
-    private String nombre;
-    private String material;
-    private String ocasion;
-    private String tipo;
-    private String ubicacion;
+    protected int id;
+    protected String nombre;
+    protected String material;
+    protected String ocasion;
+    protected String tipo;
+    protected String ubicacion;
+
+    //?
+    protected char genero;
+    protected String marca;
+    protected String talla;
 
     // Constructor si se dan todos los parametros
     public Articulo(int id, String nombre, String material, String ocasion, String tipo, String ubicacion) {
@@ -92,6 +97,30 @@ abstract public class Articulo implements Serializable {
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public char getGenero() {
+        return genero;
+    }
+
+    public void setGenero(char genero){
+        this.genero=genero;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setTalla(String talla) {
+        this.talla = talla;
+    }
+
+    public String getTalla() {
+        return talla;
     }
 
     @Override
