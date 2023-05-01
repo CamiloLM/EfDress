@@ -1,4 +1,4 @@
-package com.datastructures.efdress;
+package com.datastructures.efdress.enums;
 
 public enum Fit{
     RECTO,SKINNY,JOGGER,PALAZZO,CULOTTE,LEGGINS,FLARE,WIDELEG,BASICO,CAPRI,CARGO,RELAX,MOMFIT,

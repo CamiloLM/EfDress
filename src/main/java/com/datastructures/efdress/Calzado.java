@@ -1,5 +1,7 @@
 package com.datastructures.efdress;
 
+import com.datastructures.efdress.enums.ClasCalzado;
+
 /**
  *
  * @author calon

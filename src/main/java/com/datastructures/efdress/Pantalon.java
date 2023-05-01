@@ -4,6 +4,10 @@ package com.datastructures.efdress;
 Llamariamos pantalon a cualquier prenda de ropa que vaya desde la cintura hasta donde llegue
 */
 
+import com.datastructures.efdress.enums.ClasPantalon;
+import com.datastructures.efdress.enums.Fit;
+import com.datastructures.efdress.enums.Tiro;
+
 public class Pantalon extends Articulo {
     private Tiro tiro;
     private Fit fit;

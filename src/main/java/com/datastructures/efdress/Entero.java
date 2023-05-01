@@ -1,7 +1,6 @@
 package com.datastructures.efdress;
 
-import java.awt.Color;
-import java.util.HashMap;
+import com.datastructures.efdress.enums.ClasEntero;
 
 /**
  *
