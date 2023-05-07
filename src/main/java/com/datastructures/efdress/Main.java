@@ -20,8 +20,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
-// public class Main extends Application {
-protected static TreeMap<String, Articulo> miRopa = new TreeMap<>();
+    // public class Main extends Application {
+    protected static TreeMap<Integer, Articulo> miRopa = new TreeMap<>();
     protected static ArrayList<String> itemOpcion= new ArrayList<String>(
             Arrays.asList("material","ocasion","ubicacion"));
     protected static ArrayList<String> pantsOpcion= new ArrayList<String>(
@@ -302,32 +302,19 @@ protected static TreeMap<String, Articulo> miRopa = new TreeMap<>();
         }
     */
 
-    public static int update(HashMap<String, String> atributos, String nombre){
+    public static int update(HashMap<String, String> atributos, Integer id){
 
 
 
-        Articulo actual= miRopa.get(nombre);
+        Articulo actual= miRopa.get(id);
         if(actual==null){return -1;}
 
-        if(atributos.containsKey("nombre")){
-
-            miRopa.remove(nombre);
-            actual.setNombre(atributos.get("nombre"));
-            if(actual instanceof Pantalon){miRopa.put(actual.getNombre(), (Pantalon) actual);}
-            if(actual instanceof Abrigo){miRopa.put(actual.getNombre(), (Abrigo) actual);}
-            if(actual instanceof Entero){miRopa.put(actual.getNombre(), (Entero) actual);}
-            if(actual instanceof Calzado){miRopa.put(actual.getNombre(), (Calzado) actual);}
-            if(actual instanceof Sombrero){miRopa.put(actual.getNombre(), (Sombrero) actual);}
-            if(actual instanceof TopHombre){miRopa.put(actual.getNombre(), (TopHombre) actual);}
-            if(actual instanceof TopMujer){miRopa.put(actual.getNombre(), (TopMujer) actual);}
-        }
-
         if(actual instanceof Pantalon){
-                        if(atributos.containsKey("fit")){
-                            ((Pantalon) actual).setFit(atributos.get("fit"));
-                        } else if (atributos.containsKey("tiro")){
-                            ((Pantalon) actual).setTiro(atributos.get("tiro"));
-                        }
+            if(atributos.containsKey("fit")){
+                ((Pantalon) actual).setFit(atributos.get("fit"));
+            } else if (atributos.containsKey("tiro")){
+                ((Pantalon) actual).setTiro(atributos.get("tiro"));
+            }
 
         }
 
@@ -346,21 +333,16 @@ protected static TreeMap<String, Articulo> miRopa = new TreeMap<>();
                 actual.setNombre(atributos.get(at));
             }
         }
-        if(actual instanceof Pantalon){miRopa.replace(nombre, (Pantalon) actual);}
-        if(actual instanceof Abrigo){miRopa.replace(nombre, (Abrigo) actual);}
-        if(actual instanceof Entero){miRopa.replace(nombre, (Entero) actual);}
-        if(actual instanceof Calzado){miRopa.replace(nombre, (Calzado) actual);}
-        if(actual instanceof Sombrero){miRopa.replace(nombre, (Sombrero) actual);}
-        if(actual instanceof TopHombre){miRopa.replace(nombre, (TopHombre) actual);}
-        if(actual instanceof TopMujer){miRopa.replace(nombre, (TopMujer) actual);}
+        /*
+        if(actual instanceof Pantalon){miRopa.replace(id, (Pantalon) actual);}
+        if(actual instanceof Abrigo){miRopa.replace(id, (Abrigo) actual);}
+        if(actual instanceof Entero){miRopa.replace(id, (Entero) actual);}
+        if(actual instanceof Calzado){miRopa.replace(id, (Calzado) actual);}
+        if(actual instanceof Sombrero){miRopa.replace(id, (Sombrero) actual);}
+        if(actual instanceof TopHombre){miRopa.replace(id, (TopHombre) actual);}
+        if(actual instanceof TopMujer){miRopa.replace(id, (TopMujer) actual);}
 
-            for(String at: atributos.keySet()){
-                if(at=="fit"){
-                    ((Pantalon) actual).setFit(atributos.get(at));
-                } else if (at=="Tiro"){
-                    ((Pantalon) actual).setTiro(atributos.get(at));
-                }
-            }
+*/
 
         return 0;
     }
@@ -380,19 +362,19 @@ protected static TreeMap<String, Articulo> miRopa = new TreeMap<>();
         if(atributos.get("clase")=="Abrigo"){
             if(!tipos.get("Abrigo").contains(atributos.get("tipo"))){return -1;}
             Abrigo nuevoArt= new Abrigo(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(atributos.get("nombre"),nuevoArt);
+            miRopa.put(miRopa.size(), nuevoArt);
         }
 
         if(atributos.get("clase")=="Calzado"){
             if(!tipos.get("Calzado").contains(atributos.get("tipo"))){return -1;}
             Calzado nuevoArt= new Calzado(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(atributos.get("nombre"),nuevoArt);
+            miRopa.put(miRopa.size(),nuevoArt);
         }
 
         if(atributos.get("clase")=="Entero"){
             if(!tipos.get("Entero").contains(atributos.get("tipo"))){return -1;}
             Entero nuevoArt= new Entero(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(atributos.get("nombre"),nuevoArt);
+            miRopa.put(miRopa.size(),nuevoArt);
         }
         if(atributos.get("clase")=="Pantalon"){
             for(String at: pantsOpcion) {
@@ -402,60 +384,60 @@ protected static TreeMap<String, Articulo> miRopa = new TreeMap<>();
             }
             if(!tipos.get("Pantalon").contains(atributos.get("tipo"))){return -1;}
             Pantalon nuevoArt= new Pantalon(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"),atributos.get("tiro"),atributos.get("fit"));
-            miRopa.put(atributos.get("nombre"),nuevoArt);
+            miRopa.put(miRopa.size(),nuevoArt);
         }
         if(atributos.get("clase")=="Sombrero"){
             if(!tipos.get("Sombrero").contains(atributos.get("tipo"))){return -1;}
             Sombrero nuevoArt= new Sombrero(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(atributos.get("nombre"),nuevoArt);
+            miRopa.put(miRopa.size(),nuevoArt);
         }
         if(atributos.get("clase")=="TopHombre"){
             if(!tipos.get("TopHombre").contains(atributos.get("tipo"))){return -1;}
             TopHombre nuevoArt= new TopHombre(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(atributos.get("nombre"),nuevoArt);
+            miRopa.put(miRopa.size(),nuevoArt);
         }
         if(atributos.get("clase")=="TopMujer"){
             if(!tipos.get("TopMujer").contains(atributos.get("tipo"))){return -1;}
             TopMujer nuevoArt= new TopMujer(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(atributos.get("nombre"),nuevoArt);
+            miRopa.put(miRopa.size(),nuevoArt);
         }
 
 
-return 0;
+        return 0;
 
 
 
     }
     public static void main(String[] args) {
 
-HashMap<String, String> atrpr= new HashMap<>(){{put("clase","Abrigo");put("tipo","CHAQUETAS");put("nombre","Abrigo lindo"); put("material","sintetico");put("ocasion","casual");put("ubicacion","lol");}};
-HashMap<String, String> atrpr2= new HashMap<>(){{put("clase","Calzado");put("tipo","BOTAS");put("nombre","Botas rockeras"); put("material","Cuero");put("ocasion","casual");put("ubicacion","lol");}};
+        HashMap<String, String> atrpr= new HashMap<>(){{put("clase","Abrigo");put("tipo","CHAQUETAS");put("nombre","Abrigo lindo"); put("material","sintetico");put("ocasion","casual");put("ubicacion","lol");}};
+        HashMap<String, String> atrpr2= new HashMap<>(){{put("clase","Calzado");put("tipo","BOTAS");put("nombre","Botas rockeras"); put("material","Cuero");put("ocasion","casual");put("ubicacion","lol");}};
         HashMap<String, String> atrpr3= new HashMap<>(){{put("tipo","CHALECOS"); put("material","Algodon");put("ocasion","formal");put("ubicacion","lol");}};
 
-       newItem(atrpr);
+        newItem(atrpr);
         newItem(atrpr2);
 
-        String pruebaAbrigo= miRopa.lastKey();
+        Integer pruebaAbrigo= miRopa.lastKey();
         System.out.println(miRopa.get(pruebaAbrigo).nombre);
         System.out.println(miRopa.get(pruebaAbrigo).tipo);
-        System.out.println(miRopa.get(pruebaAbrigo).ubicacion);
+        System.out.println(miRopa.get(pruebaAbrigo).ocasion);
         System.out.println(miRopa.get(pruebaAbrigo).material);
         System.out.println(miRopa.get(pruebaAbrigo).id);
 
 
-        System.out.println(miRopa.get("Abrigo lindo").nombre);
-        System.out.println(miRopa.get("Abrigo lindo").tipo);
-        System.out.println(miRopa.get("Abrigo lindo").ubicacion);
-        System.out.println(miRopa.get("Abrigo lindo").material);
-        System.out.println(miRopa.get("Abrigo lindo").id);
-update(atrpr3,"Abrigo lindo");
+        System.out.println(miRopa.get(0).nombre);
+        System.out.println(miRopa.get(0).tipo);
+        System.out.println(miRopa.get(0).ocasion);
+        System.out.println(miRopa.get(0).material);
+        System.out.println(miRopa.get(0).id);
+        update(atrpr3,0);
 
 
-        System.out.println(miRopa.get("Abrigo lindo").nombre);
-        System.out.println(miRopa.get("Abrigo lindo").tipo);
-        System.out.println(miRopa.get("Abrigo lindo").ubicacion);
-        System.out.println(miRopa.get("Abrigo lindo").material);
-        System.out.println(miRopa.get("Abrigo lindo").id);
+        System.out.println(miRopa.get(0).nombre);
+        System.out.println(miRopa.get(0).tipo);
+        System.out.println(miRopa.get(0).ocasion);
+        System.out.println(miRopa.get(0).material);
+        System.out.println(miRopa.get(0).id);
 
 
     }
