@@ -1,10 +1,7 @@
 package com.datastructures.efdress.enums;
 
 public enum Calzado {
-    TENIS,MODA,TENISDEPORTIVOS,ZAPATOS,CASUALES,BOTAS,SANDALIAS,MOCASINES,GUAYOS,FORMALES,
-    BOTINES,ALPARGATAS,ZAPATILLAS,PANTUFLAS,ESCOLAR,OUTDOOR,ZUECOS,TACONES,BALLERINASBALETAS,
-    BOTASLLUVIA,BOTASAGUA,HAWAIANAS;
-
-
-
-    }
+    Tenis,Moda,Tenisdeportivos,Zapatos,Casuales,Botas,Sandalias,Mocasines,Guayos,
+    Formales,Botines,Alpargatas,Zapatillas,Pantuflas,Escolar,Outdoor,Zuecos,
+    Tacones,Ballerinasbaletas,Botaslluvia,Botasagua,Hawaianas
+}

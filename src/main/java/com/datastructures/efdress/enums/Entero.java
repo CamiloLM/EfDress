@@ -1,5 +1,5 @@
 package com.datastructures.efdress.enums;
 
 public enum Entero {
-    OVEROLES,JARDINERAS,JARDINERAS_SHORT,BANO,LICRAS,TRAJES,VESTIDOS,PIJAMAS
+    Overoles,Jardineras,Bano,Licras,Trajes,Vestidos,Pijamas
 }

@@ -1,5 +1,5 @@
 package com.datastructures.efdress.enums;
 
 public enum Abrigo {
-    CHAQUETAS,CHALECOS,ABRIGOS,SWEATERS,CORTAVIENTOS,HOODIES,BLAZERS,SACOS,IMPERMEABLES,CARDIGANS
-    }
+    Chaquetas,Chalecos,Abrigos,Sweaters,Cortavientos,Hoodies,Blazers,Sacos,Impermeables,Cardigans
+}

@@ -34,13 +34,15 @@ public class Articulo {
         try {
             this.setId(id);
             this.setNombre(nombre);
-            this.setMaterial(nombre);
+            this.setMaterial(material);
             this.setOcasion(ocasion);
             this.setClase(clase);
             this.setTipo(tipo);
             this.setUbicacion(ubicacion);
         } catch (Exception e) {
-            System.out.println("Something went wrong.");
+            System.out.println("\nHubo un error con los datos suministrados");
+            System.out.println(e.getMessage());
+            throw new IllegalArgumentException("No se pudo crear el objeto");
         }
     }
 
@@ -48,13 +50,15 @@ public class Articulo {
             String ocasion, String clase, String tipo, String ubicacion) {
         try {
             this.setNombre(nombre);
-            this.setMaterial(nombre);
+            this.setMaterial(material);
             this.setOcasion(ocasion);
             this.setClase(clase);
             this.setTipo(tipo);
             this.setUbicacion(ubicacion);
         } catch (Exception e) {
-            System.out.println("Something went wrong.");
+            System.out.println("\nHubo un error con los datos suministrados");
+            System.out.println(e.getMessage());
+            throw new IllegalArgumentException("No se pudo actualizar el objeto");
         }
     }
 
@@ -62,7 +66,7 @@ public class Articulo {
         TreeMap<Integer, Articulo> ropaPrueba = new TreeMap<>();
         Articulo prueba;
         Material[] materiales = Material.values();
-        Ocacion[] ocaciones = Ocacion.values();
+        Ocasion[] ocasiones = Ocasion.values();
         Clase[] clases = Clase.values();
         Enum<?>[] tipos;
         Random random = new Random();
@@ -70,7 +74,7 @@ public class Articulo {
         System.out.println("Generando datos de prueba...");
         while (i <= numeroCasos) {
             Material ranMaterial = materiales[random.nextInt(materiales.length)];
-            Ocacion ranOcacion = ocaciones[random.nextInt(ocaciones.length)];
+            Ocasion ranOcasion = ocasiones[random.nextInt(ocasiones.length)];
             Clase ranClase = clases[random.nextInt(clases.length)];
             tipos = obtenerTipos(ranClase.name());
             Enum<?> ranTipo = tipos[random.nextInt(tipos.length)];
@@ -78,7 +82,7 @@ public class Articulo {
                     i,
                     ranTipo.name() + " de " + ranMaterial.name(),
                     ranMaterial.name(),
-                    ranOcacion.name(),
+                    ranOcasion.name(),
                     ranClase.name(),
                     ranTipo.name(),
                     "Valid URL"
@@ -110,7 +114,7 @@ public class Articulo {
         }
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -123,7 +127,12 @@ public class Articulo {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        String pattern = "^[\\p{L}\\p{N}\\sáéíóúÁÉÍÓÚ]*$";
+        if (nombre.matches(pattern)) {
+            this.nombre = nombre;
+        } else {
+            throw new IllegalArgumentException("El nombre contiene caracteres invalidos");
+        }
     }
 
     public String getMaterial() {
@@ -131,7 +140,17 @@ public class Articulo {
     }
 
     public void setMaterial(String material) {
-        this.material = material;
+        if ("".equals(material)) {
+            this.material = material;
+            return;
+        }
+        for (Material e : Material.values()) {
+            if (e.name().equals(material)) {
+                this.material = material;
+                return;
+            }
+        }
+        throw new IllegalArgumentException("El material no esta disponible");
     }
 
     public String getOcasion() {
@@ -139,7 +158,17 @@ public class Articulo {
     }
 
     public void setOcasion(String ocasion) {
-        this.ocasion = ocasion;
+        if ("".equals(material)) {
+            this.material = material;
+            return;
+        }
+        for (Ocasion e : Ocasion.values()) {
+            if (e.name().equals(ocasion)) {
+                this.ocasion = ocasion;
+                return;
+            }
+        }
+        throw new IllegalArgumentException("La ocasion no esta disponible");
     }
 
     public String getTipo() {
@@ -147,7 +176,18 @@ public class Articulo {
     }
 
     public void setTipo(String tipo) {
-        this.tipo = tipo;
+        if (this.clase != null) {
+            Enum<?>[] tipos = obtenerTipos(this.clase);
+            for (Enum<?> e : tipos) {
+                if (e.name().equals(tipo)) {
+                    this.tipo = tipo;
+                    return;
+                }
+            }
+            throw new IllegalArgumentException("El tipo no esta disponible");
+        }
+        throw new IllegalStateException("No se ha asignado una clase previamente");
+        
     }
 
     public String getUbicacion() {
@@ -162,8 +202,14 @@ public class Articulo {
         return clase;
     }
 
-    public void setClase(String clase) {
-        this.clase = clase;
+    public void setClase(String clase) throws IllegalArgumentException {
+        for (Clase e : Clase.values()) {
+            if (e.name().equals(clase)) {
+                this.clase = clase;
+                return;
+            }
+        }
+        throw new IllegalArgumentException("La clase no esta disponible");
     }
 
     @Override
