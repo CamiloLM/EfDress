@@ -1,5 +1,5 @@
 package com.datastructures.efdress.enums;
 
-public enum ClasTopH {
+public enum TopHombre {
     CAMISAS,CAMISETAS,CAMISETAS_DEPORTIVAS,POLOS
 }

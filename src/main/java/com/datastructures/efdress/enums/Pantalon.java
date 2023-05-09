@@ -1,5 +1,5 @@
 package com.datastructures.efdress.enums;
 
-public enum ClasPantalon {
+public enum Pantalon {
     LEGGINS,JOGGERS,PANTALONES,JEANS,SHORTS,BERMUDAS,DEPORTIVOS,FALDAS;
 }

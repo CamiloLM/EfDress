@@ -1,8 +1,5 @@
 package com.datastructures.efdress;
 
-
-import java.util.*;
-
 /*
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,170 +8,135 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
-*/
-
 import java.util.function.Supplier;
-import java.io.*;
-import java.util.LinkedList;
+ */
 import java.util.Random;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class Main {
-    // public class Main extends Application {
+
     protected static TreeMap<Integer, Articulo> miRopa = new TreeMap<>();
-    protected static ArrayList<String> itemOpcion= new ArrayList<String>(
-            Arrays.asList("material","ocasion","ubicacion"));
-    protected static ArrayList<String> pantsOpcion= new ArrayList<String>(
-            Arrays.asList("tiro","fit"));
-    protected static ArrayList<String> clases= new ArrayList<String>(
-            Arrays.asList("Abrigo", "Calzado", "Entero", "Pantalon", "Sombrero", "TopHombre", "TopMujer"));
-    protected static HashMap<String, ArrayList<String>> tipos= new HashMap<String, ArrayList<String>>(){{
-        put("Abrigo", new ArrayList<String>(
-                Arrays.asList("CHAQUETAS","CHALECOS","ABRIGOS","SWEATERS","CORTAVIENTOS","HOODIES","BLAZERS","SACOS","IMPERMEABLES","CARDIGANS")));
-        put("Calzado", new ArrayList<String>(
-                Arrays.asList("TENIS","MODA","TENISDEPORTIVOS","ZAPATOS","CASUALES","BOTAS","SANDALIAS","MOCASINES","GUAYOS","FORMALES",
-                        "BOTINES","ALPARGATAS","ZAPATILLAS","PANTUFLAS","ESCOLAR","OUTDOOR","ZUECOS","TACONES","BALLERINASBALETAS",
-                        "BOTASLLUVIA","BOTASAGUA","HAWAIANAS")));
-        put("Entero", new ArrayList<String>(
-                Arrays.asList("OVEROLES","JARDINERAS","JARDINERAS_SHORT","BANO","LICRAS","TRAJES","VESTIDOS","PIJAMAS")));
-        put("Pantalon", new ArrayList<String>(
-                Arrays.asList("LEGGINS","JOGGERS","PANTALONES","JEANS","SHORTS","BERMUDAS","DEPORTIVOS","FALDAS")));
-        put("Sombrero", new ArrayList<String>(
-                Arrays.asList("BOINA","GORRA","SOMBRERO")));
 
-        put("TopHombre", new ArrayList<String>(Arrays.asList("CAMISAS","CAMISETAS","CAMISETAS_DEPORTIVAS","POLOS")));
-        put("TopMujer", new ArrayList<String>(Arrays.asList("CAMISETAS","BLUSAS","CROPTOPS","CAMISAS","TOPS","BODYS","CORSET")));
+//    public static void guardarObjeto(LinkedList<Articulo> ropa) {
+//        try {
+//            try (var writeFile = new ObjectOutputStream(new FileOutputStream(".\\src\\main\\java\\com\\datastructures\\efdress\\datos.dat"))) {
+//                writeFile.writeObject(ropa);
+//                System.out.println("Objeto guardado con exito.");
+//            }
+//        } catch (IOException e) {
+//            System.out.println(e);
+//        }
+//    }
+//
+//    public static LinkedList<Articulo> cargarObjeto() {
+//        try {
+//            try (var readFile = new ObjectInputStream(new FileInputStream(".\\src\\main\\java\\com\\datastructures\\efdress\\datos.dat"))) {
+//                LinkedList<Articulo> ropa = (LinkedList) readFile.readObject();
+//                return ropa;
+//            }
+//        } catch (IOException | ClassNotFoundException e) {
+//            System.out.println(e);
+//            return null;
+//        }
+//    }
+    public static void medirTiempo(int n) {
+        // Aqui creen los parametros que necesitan para llamar a la funcion
+        miRopa = Articulo.generarDatosPrueba(n);
+        Random random = new Random();
+        int randomNumber = random.nextInt(n + 1);
 
+        long startTime = System.currentTimeMillis();
+        // Aqui solo hacen la llamada a la funcion
+        System.out.println(findItem(randomNumber));
+        long endTime = System.currentTimeMillis();
 
-    }};
-    public static Articulo addItem(){
-        Scanner scanner = new Scanner(System.in);
-        Articulo obj;
-        System.out.println("\nQue tipo de articulo quiere añadir: ");
-        System.out.println("1. Parte superior");
-        System.out.println("2. Cuerpo entero");
-        System.out.println("3. Parte inferior");
-        System.out.println("4. Sombreros");
-        System.out.println("5. Calzado\n");
-
-        int option = scanner.nextInt();
-        switch (option) {
-            case 1:
-                System.out.println("Superior seleccionado");
-                obj = new Superior();
-                break;
-            case 2:
-                System.out.println("Entero seleccionado");
-                obj = new Entero();
-                break;
-            case 3:
-                System.out.println("Inferior seleccionado");
-                obj = new Inferior();
-                break;
-            case 4:
-                System.out.println("Sombrero seleccionado");
-                obj = new Sombrero();
-                break;
-            case 5:
-                System.out.println("Calzado seleccionado");
-                obj = new Calzado();
-                break;
-            default:
-                System.out.println("La opcion no en lista.");
-                obj = null;
-                break;
-        }
-        return obj;
+        System.out.println(endTime - startTime + "ms.");
     }
 
-    public static Articulo getItem(int id, LinkedList<Articulo> miRopa) {
-        for (Articulo e : miRopa) {
-            if (e.getId() == id) return e;
+    public static String[] userInputUtil(Scanner scanner) {
+        String[] values = new String[6];
+        System.out.println("Ingrese los datos que se piden a continuación:");
+        System.out.print("Nombre: ");
+        values[0] = scanner.nextLine();
+        System.out.print("Material: ");
+        values[1] = scanner.nextLine();
+        System.out.print("Ocasion: ");
+        values[2] = scanner.nextLine();
+        System.out.print("Clase: ");
+        values[3] = scanner.nextLine();
+        System.out.print("Tipo: ");
+        values[4] = scanner.nextLine();
+        System.out.print("Ubicación: ");
+        values[5] = scanner.nextLine();
+        return values;
+    }
+
+    public static Articulo newItem(int id, String nombre, String material, String ocasion,
+            String clase, String tipo, String ubicacion) {
+        Articulo nuevo = new Articulo();
+        nuevo.crearArticulo(id, nombre, material, ocasion, clase, tipo, ubicacion);
+        miRopa.put(id, nuevo);
+        return nuevo;
+    }
+
+    public static Articulo updateItem(int id, String nombre, String material, String ocasion,
+            String clase, String tipo, String ubicacion) {
+        Articulo actual = findItem(id);
+        actual.actulizarArticulo(nombre, material, ocasion, clase, tipo, ubicacion);
+        return actual;
+    }
+
+    public static Articulo findItem(int id) {
+        return miRopa.get(id);
+    }
+
+    public static Articulo findItem(String patron) {
+        for (Articulo art : miRopa.values()) {
+            if (art.getNombre().contains(patron)) {
+                return art;
+            }
         }
         return null;
     }
 
-    public static LinkedList<Articulo> removeItem(Articulo e, LinkedList<Articulo> miRopa) {
-        if (miRopa.remove(e)) {
-            System.out.println("Objeto eliminado con exito");
-        } else {
-            System.out.println("No se encuentra el documento.");
-        }
-        return miRopa;
+    public static Articulo removeItem(int id) {
+        return miRopa.remove(id);
     }
 
-    public static void updateItem(Articulo e, LinkedList<Articulo> miRopa) {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(e);
-        System.out.println("Ingrese los datos que quiere actualizar en el siguiente orden separados por comas:");
-        System.out.println("Nombre, material, ocasion, tipo, ubicacion. ");
-        String entry = scanner.nextLine();
-        String[] line = entry.split(",");
+        System.out.println("\nCreando un nuevo objeto por consola");
+        String[] arr = userInputUtil(scanner);
+        System.out.println(newItem(miRopa.size(), arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
 
-        e.setNombre(line[0]);
-        e.setMaterial(line[1]);
-        e.setOcasion(line[2]);
-        e.setTipo(line[3]);
-        e.setUbicacion(line[4]);
-    }
+        System.out.println("\nAgregando más objetos por codigo");
+        newItem(miRopa.size(), "Abrigo lindo", "Sintetico", "Casual", "Abrigo", "CHAQUETAS", "url1");
+        newItem(miRopa.size(), "Botas rockeras", "Cuero", "Casual", "Calzado", "BOTAS", "url2");
+        newItem(miRopa.size(), "Pantalonzote", "Seda", "Formal", "Pantalon", "Pantalones", "url3");
 
-    public static void guardarObjeto(LinkedList<Articulo> ropa) {
-        try {
-            try (var writeFile = new ObjectOutputStream(new FileOutputStream(".\\src\\main\\java\\com\\datastructures\\efdress\\datos.dat"))) {
-                writeFile.writeObject(ropa);
-                System.out.println("Objeto guardado con exito.");
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-    }
+        System.out.println("Mirar toda la ropa");
+        System.out.println(miRopa);
+        
+        System.out.println("\nBuscar por nombre");
+        System.out.println(findItem("lindo"));
 
-    public static LinkedList<Articulo> cargarObjeto() {
-        try {
-            try (var readFile = new ObjectInputStream(new FileInputStream(".\\src\\main\\java\\com\\datastructures\\efdress\\datos.dat"))) {
-                LinkedList<Articulo> ropa = (LinkedList)readFile.readObject();
-                return ropa;
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
-            return null;
-        }
-    }
+        System.out.println("\nBuscar por ID");
+        System.out.println(findItem(1));
+        
+        System.out.println("\nAcutalizar objeto");
+        updateItem(1, "Sombrero Fachero", "Poliester", "Fiesta", "Sombrero", "SOMBRERO", "url");
+        System.out.println(findItem(1));
 
-    public static LinkedList<Articulo> generarDatosPrueba (int numeroCasos) {
-        Superior obj;
-        LinkedList<Articulo> ropa = new LinkedList<>();
-        String[] materiales = {"Algodon", "Poliester", "Lino", "Lana", "Seda", "Nylon", "Lycra", "Jean"};
-        String[] ocaciones = {"diario", "formal", "deportiva", "dormir", "fiesta", "playa", "calor", "frio"};
-        String[] tipos = {"Blusas", "Chaquetas", "Camiseta", "Top", "Jersey", "Sueter", "Esqueletos", "Camisas", "Sudaderas", "Polos", "Chalecos"};
-        Random rand = new Random();
-        int limite = numeroCasos;
-        int i = 1;
-        System.out.println("Generando datos de prueba...");
-        while (i <= limite) {
-            obj = new Superior(
-                    i,
-                    "Articulo Numero: " + Integer.toString(i),
-                    materiales[rand.nextInt(materiales.length)],
-                    ocaciones[rand.nextInt(ocaciones.length)],
-                    tipos[rand.nextInt(tipos.length)],
-                    "url"
-            );
-            ropa.addLast(obj);
-            i++;
-        }
-        return ropa;
-    }
+        System.out.println("\nEliminar objeto");
+        System.out.println(removeItem(2));
 
-    public static void medirTiempo(LinkedList<Articulo> miRopa) {
-        int limite = 1000;
-        miRopa = generarDatosPrueba(limite);
+        System.out.println("Mirar toda la ropa");
+        System.out.println(miRopa);
 
-        long startTime = System.currentTimeMillis();
-        guardarObjeto(miRopa);
-        long endTime = System.currentTimeMillis();
-        System.out.println(endTime - startTime + "ms.");
+        System.out.println("Midiendo un caso de prueba");
+        medirTiempo(1000);
     }
 
     /*
@@ -300,145 +262,5 @@ public class Main {
 
 
         }
-    */
-
-    public static int update(HashMap<String, String> atributos, Integer id){
-
-
-
-        Articulo actual= miRopa.get(id);
-        if(actual==null){return -1;}
-
-        if(actual instanceof Pantalon){
-            if(atributos.containsKey("fit")){
-                ((Pantalon) actual).setFit(atributos.get("fit"));
-            } else if (atributos.containsKey("tiro")){
-                ((Pantalon) actual).setTiro(atributos.get("tiro"));
-            }
-
-        }
-
-        for(String at: atributos.keySet()){
-            if(at=="tipo"){
-                actual.setTipo(atributos.get(at));
-            } else if (at=="ocasion"){
-                actual.setOcasion(atributos.get(at));
-            } else if (at=="material"){
-                actual.setMaterial(atributos.get(at));
-            } else if (at=="ubicacion"){
-                actual.setUbicacion(atributos.get(at));
-            } else if (at=="ocasion"){
-                actual.setOcasion(atributos.get(at));
-            } else if (at=="nombre"){
-                actual.setNombre(atributos.get(at));
-            }
-        }
-        /*
-        if(actual instanceof Pantalon){miRopa.replace(id, (Pantalon) actual);}
-        if(actual instanceof Abrigo){miRopa.replace(id, (Abrigo) actual);}
-        if(actual instanceof Entero){miRopa.replace(id, (Entero) actual);}
-        if(actual instanceof Calzado){miRopa.replace(id, (Calzado) actual);}
-        if(actual instanceof Sombrero){miRopa.replace(id, (Sombrero) actual);}
-        if(actual instanceof TopHombre){miRopa.replace(id, (TopHombre) actual);}
-        if(actual instanceof TopMujer){miRopa.replace(id, (TopMujer) actual);}
-
-*/
-
-        return 0;
-    }
-
-
-    public static int newItem(HashMap<String, String> atributos){
-
-        if(!atributos.containsKey("clase") || !clases.contains(atributos.get("clase")) || !atributos.containsKey("nombre") || !atributos.containsKey("tipo")){
-            return -1;
-        }
-
-        for(String at: itemOpcion) {
-            if (!atributos.containsKey(at)) {
-                atributos.put(at, "");
-            }
-        }
-        if(atributos.get("clase")=="Abrigo"){
-            if(!tipos.get("Abrigo").contains(atributos.get("tipo"))){return -1;}
-            Abrigo nuevoArt= new Abrigo(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(miRopa.size(), nuevoArt);
-        }
-
-        if(atributos.get("clase")=="Calzado"){
-            if(!tipos.get("Calzado").contains(atributos.get("tipo"))){return -1;}
-            Calzado nuevoArt= new Calzado(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(miRopa.size(),nuevoArt);
-        }
-
-        if(atributos.get("clase")=="Entero"){
-            if(!tipos.get("Entero").contains(atributos.get("tipo"))){return -1;}
-            Entero nuevoArt= new Entero(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(miRopa.size(),nuevoArt);
-        }
-        if(atributos.get("clase")=="Pantalon"){
-            for(String at: pantsOpcion) {
-                if (!atributos.containsKey(at)) {
-                    atributos.put(at, "");
-                }
-            }
-            if(!tipos.get("Pantalon").contains(atributos.get("tipo"))){return -1;}
-            Pantalon nuevoArt= new Pantalon(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"),atributos.get("tiro"),atributos.get("fit"));
-            miRopa.put(miRopa.size(),nuevoArt);
-        }
-        if(atributos.get("clase")=="Sombrero"){
-            if(!tipos.get("Sombrero").contains(atributos.get("tipo"))){return -1;}
-            Sombrero nuevoArt= new Sombrero(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(miRopa.size(),nuevoArt);
-        }
-        if(atributos.get("clase")=="TopHombre"){
-            if(!tipos.get("TopHombre").contains(atributos.get("tipo"))){return -1;}
-            TopHombre nuevoArt= new TopHombre(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(miRopa.size(),nuevoArt);
-        }
-        if(atributos.get("clase")=="TopMujer"){
-            if(!tipos.get("TopMujer").contains(atributos.get("tipo"))){return -1;}
-            TopMujer nuevoArt= new TopMujer(miRopa.size(), atributos.get("nombre"), atributos.get("material"),atributos.get("ocasion"),atributos.get("tipo"),atributos.get("ubicacion"));
-            miRopa.put(miRopa.size(),nuevoArt);
-        }
-
-
-        return 0;
-
-
-
-    }
-    public static void main(String[] args) {
-
-        HashMap<String, String> atrpr= new HashMap<>(){{put("clase","Abrigo");put("tipo","CHAQUETAS");put("nombre","Abrigo lindo"); put("material","sintetico");put("ocasion","casual");put("ubicacion","lol");}};
-        HashMap<String, String> atrpr2= new HashMap<>(){{put("clase","Calzado");put("tipo","BOTAS");put("nombre","Botas rockeras"); put("material","Cuero");put("ocasion","casual");put("ubicacion","lol");}};
-        HashMap<String, String> atrpr3= new HashMap<>(){{put("tipo","CHALECOS"); put("material","Algodon");put("ocasion","formal");put("ubicacion","lol");}};
-
-        newItem(atrpr);
-        newItem(atrpr2);
-
-        Integer pruebaAbrigo= miRopa.lastKey();
-        System.out.println(miRopa.get(pruebaAbrigo).nombre);
-        System.out.println(miRopa.get(pruebaAbrigo).tipo);
-        System.out.println(miRopa.get(pruebaAbrigo).ocasion);
-        System.out.println(miRopa.get(pruebaAbrigo).material);
-        System.out.println(miRopa.get(pruebaAbrigo).id);
-
-
-        System.out.println(miRopa.get(0).nombre);
-        System.out.println(miRopa.get(0).tipo);
-        System.out.println(miRopa.get(0).ocasion);
-        System.out.println(miRopa.get(0).material);
-        System.out.println(miRopa.get(0).id);
-        update(atrpr3,0);
-
-
-        System.out.println(miRopa.get(0).nombre);
-        System.out.println(miRopa.get(0).tipo);
-        System.out.println(miRopa.get(0).ocasion);
-        System.out.println(miRopa.get(0).material);
-        System.out.println(miRopa.get(0).id);
-
-
-    }
+     */
 }
