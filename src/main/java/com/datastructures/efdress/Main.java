@@ -20,6 +20,7 @@ import java.util.Arrays;
 public class Main {
 
     protected static TreeMap<Integer, Articulo> miRopa = new TreeMap<>();
+    protected static Favorito favs = Favorito.getInstance();
 
 //    public static void guardarObjeto(LinkedList<Articulo> ropa) {
 //        try {
@@ -161,6 +162,38 @@ public class Main {
 
         System.out.println("\nMidiendo un caso de prueba");
         medirTiempo(1000);
+
+        //Probando los favoritos
+        favs.saveFavorite(miRopa.get(1).getId());
+        favs.saveFavorite(miRopa.get(2).getId());
+        favs.saveFavorite(miRopa.get(3).getId());
+        favs.saveFavorite(miRopa.get(4).getId());
+        favs.saveFavorite(miRopa.get(5).getId());
+        favs.saveFavorite(miRopa.get(6).getId());
+        favs.saveFavorite(miRopa.get(7).getId());
+        favs.saveFavorite(miRopa.get(8).getId());
+
+        //Obteniendo favorito por id
+        System.out.println(findItem(favs.getFav(1)));
+        System.out.println(findItem(favs.getFav(2)));
+
+        //Este item no existe
+        System.out.println(findItem(favs.getFav(9)));
+
+        //Obteniendo todos los favoritos
+        Integer[] favoritos=favs.getAllFavs();
+        for(Integer id:favoritos){
+            System.out.print(id+", ");
+        }
+        //Eliminando favorito
+        System.out.println();
+        favs.deleteFavorite(1);
+        favs.deleteFavorite(2);
+        System.out.println(favs);
+        //Eliminando todos los favoritos
+        favs.deleteAll();
+        System.out.println(favs);
+
     }
 }
     /*
