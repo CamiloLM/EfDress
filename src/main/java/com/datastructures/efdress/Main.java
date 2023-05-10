@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Main {
 
     protected static AVLTree miRopa = new AVLTree();
+    protected static Favorito favs = Favorito.getInstance();
 
 //    public static void guardarObjeto(LinkedList<Articulo> ropa) {
 //        try {
@@ -33,7 +34,6 @@ public class Main {
 //            return null;
 //        }
 //    }
-    
     public static void medirTiempo(int n) {
         // Aqui creen los parametros que necesitan para llamar a la funcion
         miRopa = Articulo.generarDatosPrueba(n);
@@ -47,7 +47,7 @@ public class Main {
 
         System.out.println(endTime - startTime + "ms.");
     }
-    
+
     public static String[] userInputUtil(Scanner scanner) {
         String[] values = new String[6];
         System.out.println("Ingrese los datos que se piden a continuación:");
@@ -82,7 +82,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public static void showValues() {
         System.out.println(miRopa);
     }
@@ -103,11 +103,11 @@ public class Main {
     public static Articulo findItem(int id) {
         return miRopa.search(id);
     }
-    
+
     public static ArrayList findItem(String patron) {
         return miRopa.search(patron);
     }
-    
+
     public static void removeItem(int id) {
         miRopa.delete(id);
     }
@@ -146,5 +146,39 @@ public class Main {
 
         System.out.println("\nMidiendo un caso de prueba");
         medirTiempo(1000);
+        
+        miRopa = Articulo.generarDatosPrueba(8);
+
+        //Probando los favoritos
+        favs.saveFavorite(miRopa.search(1).getId());
+        favs.saveFavorite(miRopa.search(2).getId());
+        favs.saveFavorite(miRopa.search(3).getId());
+        favs.saveFavorite(miRopa.search(4).getId());
+        favs.saveFavorite(miRopa.search(5).getId());
+        favs.saveFavorite(miRopa.search(6).getId());
+        favs.saveFavorite(miRopa.search(7).getId());
+        favs.saveFavorite(miRopa.search(8).getId());
+
+        //Obteniendo favorito por id
+        System.out.println(findItem(favs.getFav(1)));
+        System.out.println(findItem(favs.getFav(2)));
+
+        //Este item no existe
+        System.out.println(findItem(favs.getFav(9)));
+
+        //Obteniendo todos los favoritos
+        Integer[] favoritos = favs.getAllFavs();
+        for (Integer id : favoritos) {
+            System.out.print(id + ", ");
+        }
+        //Eliminando favorito
+        System.out.println();
+        favs.deleteFavorite(1);
+        favs.deleteFavorite(2);
+        System.out.println(favs);
+        //Eliminando todos los favoritos
+        favs.deleteAll();
+        System.out.println(favs);
+
     }
 }
