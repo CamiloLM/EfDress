@@ -2,9 +2,8 @@ package com.datastructures.efdress;
 
 import com.datastructures.efdress.enums.*;
 import java.util.Random;
-import java.util.TreeMap;
 
-public class Articulo {
+public class Articulo implements Comparable<Articulo> {
 
     private int id;
     private String nombre;
@@ -27,6 +26,11 @@ public class Articulo {
         this.clase = clase;
         this.tipo = tipo;
         this.ubicacion = ubicacion;
+    }
+    
+    @Override
+    public int compareTo(Articulo otro) {
+        return Integer.compare(this.id, otro.id);
     }
 
     public void crearArticulo(int id, String nombre, String material,
@@ -62,8 +66,8 @@ public class Articulo {
         }
     }
 
-    public static TreeMap<Integer, Articulo> generarDatosPrueba(int numeroCasos) {
-        TreeMap<Integer, Articulo> ropaPrueba = new TreeMap<>();
+    public static AVLTree generarDatosPrueba(int numeroCasos) {
+        AVLTree ropaPrueba = new AVLTree();
         Articulo prueba;
         Material[] materiales = Material.values();
         Ocasion[] ocasiones = Ocasion.values();
@@ -87,7 +91,7 @@ public class Articulo {
                     ranTipo.name(),
                     "Valid URL"
             );
-            ropaPrueba.put(i, prueba);
+            ropaPrueba.insert(prueba);
             i++;
         }
         return ropaPrueba;
@@ -114,7 +118,7 @@ public class Articulo {
         }
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
