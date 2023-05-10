@@ -1,6 +1,6 @@
 package com.datastructures.efdress;
 
-/*
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
+
+import java.io.IOException;
 import java.util.function.Supplier;
- */
+
 import static com.datastructures.efdress.Articulo.obtenerTipos;
 import com.datastructures.efdress.enums.Clase;
 import java.util.Random;
@@ -17,7 +19,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.Arrays;
 
-public class Main {
+public class Main extends Application {
 
     protected static TreeMap<Integer, Articulo> miRopa = new TreeMap<>();
     protected static Favorito favs = Favorito.getInstance();
@@ -130,6 +132,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        launch();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nCreando un nuevo objeto por consola");
@@ -195,18 +198,20 @@ public class Main {
         System.out.println(favs);
 
     }
-}
-    /*
+
+
     @Override
     public void start(Stage stage) throws IOException {
         // Scene new item (type)
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        Scene scene = new Scene(root, 1280, 720);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("main.fxml"));
+
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
 
+/*
         grid2.add(new Label("What kind of item is it?"), 0, 0);
         grid2.add(addItemC2, 1, 0);
         grid2.add(prevSceneB, 1, 1);
@@ -282,13 +287,7 @@ public class Main {
 
         Scene newItScene1 = new Scene(new Group(), 500, 400);
 
-        EventHandler<ActionEvent> gobackEvent = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                addItemC2.getItems().clear();
-                stage.setScene(newItScene2);
 
-            }
-        };
 
         // when button is pressed
         prevSceneB.setOnAction(gobackEvent);
@@ -310,5 +309,5 @@ public class Main {
         layout2.getChildren().addAll(addItemb);
         Scene mainScene = new Scene(layout2, 500, 400);
 
-    }
-    */
+    }*/}}
+

@@ -129,7 +129,7 @@ public class SceneController {
         };
 
         // when button is pressed
-        prevSceneB.setOnAction(gobackEvent);
+       /* prevSceneB.setOnAction(gobackEvent);
         prevSceneB.setOnAction(event -> stage.setScene(newItScene1));
         GridPane grid1 = new GridPane();
         grid1.setVgap(4);
@@ -158,7 +158,7 @@ public class SceneController {
         stage.setTitle("Hello!");
 
         scene = new Scene(root);
-        stage.setScene(mainScene);
+        // stage.setScene(mainScene);
         stage.show();
     }
 
