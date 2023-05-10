@@ -1,6 +1,4 @@
-package com.datastructures.efdress.enums;
-
-import com.datastructures.efdress.Favorito;
+package com.datastructures.efdress;
 
 import java.util.LinkedList;
 import java.util.Stack;
