@@ -2,6 +2,7 @@ package com.datastructures.efdress;
 
 import com.datastructures.efdress.enums.*;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class Articulo implements Comparable<Articulo> {
 
@@ -17,7 +18,7 @@ public class Articulo implements Comparable<Articulo> {
 
     }
 
-    private Articulo(int id, String nombre, String material,
+    protected Articulo(int id, String nombre, String material,
             String ocasion, String clase, String tipo, String ubicacion) {
         this.id = id;
         this.nombre = nombre;
@@ -66,8 +67,9 @@ public class Articulo implements Comparable<Articulo> {
         }
     }
 
-    public static AVLTree generarDatosPrueba(int numeroCasos) {
-        AVLTree ropaPrueba = new AVLTree();
+    public static TreeMap<Integer, Articulo> generarDatosPrueba(int numeroCasos) {
+        TreeMap<Integer, Articulo> ropaPrueba = new TreeMap<>();
+        long startTime, endTime,time;
         Articulo prueba;
         Material[] materiales = Material.values();
         Ocasion[] ocasiones = Ocasion.values();
@@ -75,7 +77,8 @@ public class Articulo implements Comparable<Articulo> {
         Enum<?>[] tipos;
         Random random = new Random();
         int i = 1;
-        System.out.println("Generando datos de prueba...");
+        System.out.println("\n\nGenerando "+ numeroCasos+" datos de prueba...");
+        startTime=System.currentTimeMillis();
         while (i <= numeroCasos) {
             Material ranMaterial = materiales[random.nextInt(materiales.length)];
             Ocasion ranOcasion = ocasiones[random.nextInt(ocasiones.length)];
@@ -91,11 +94,17 @@ public class Articulo implements Comparable<Articulo> {
                     ranTipo.name(),
                     "Valid URL"
             );
-            ropaPrueba.insert(prueba);
+            ropaPrueba.put(prueba.getId(),prueba);
             i++;
         }
+        endTime=System.currentTimeMillis();
+        time=endTime-startTime;
+        System.out.println("Total tiempo (ms): "+time);
         return ropaPrueba;
     }
+
+
+
 
     public static Enum<?>[] obtenerTipos(String className) {
         switch (className) {
