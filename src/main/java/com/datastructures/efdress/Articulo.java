@@ -67,7 +67,7 @@ public class Articulo implements Comparable<Articulo> {
         }
     }
 
-    public static TreeMap<Integer, Articulo> generarDatosPrueba(int numeroCasos) {
+    public static TreeMap<Integer, Articulo> generarDatosPrueba(int numeroCasos, int nprueba) {
         TreeMap<Integer, Articulo> ropaPrueba = new TreeMap<>();
         long startTime, endTime,time;
         Articulo prueba;
@@ -96,6 +96,33 @@ public class Articulo implements Comparable<Articulo> {
             );
             ropaPrueba.put(prueba.getId(),prueba);
             i++;
+        }
+        endTime=System.currentTimeMillis();
+        time=endTime-startTime;
+        System.out.println("Total tiempo (ms): "+time);
+        System.out.println("Añadir "+nprueba+" artículos:");
+
+        startTime=System.currentTimeMillis();
+
+        int j=0;
+        while (j<=nprueba){
+            Material ranMaterial = materiales[random.nextInt(materiales.length)];
+            Ocasion ranOcasion = ocasiones[random.nextInt(ocasiones.length)];
+            Clase ranClase = clases[random.nextInt(clases.length)];
+            tipos = obtenerTipos(ranClase.name());
+            Enum<?> ranTipo = tipos[random.nextInt(tipos.length)];
+            prueba = new Articulo(
+                    numeroCasos+j,
+                    ranTipo.name() + " de " + ranMaterial.name(),
+                    ranMaterial.name(),
+                    ranOcasion.name(),
+                    ranClase.name(),
+                    ranTipo.name(),
+                    "Valid URL"
+            );
+            ropaPrueba.put(prueba.getId(),prueba);
+            j++;
+
         }
         endTime=System.currentTimeMillis();
         time=endTime-startTime;

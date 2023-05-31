@@ -34,7 +34,7 @@ public class Main {
 //            return null;
 //        }
 //    }
-    public static void medirTiempo(int n, String funcion) {
+    public static void medirTiempo(int n, String funcion, int casos) {
         // Se generan n instancias de la clase artículo aleatoriamente
         Random random = new Random();
         int randomNumber;
@@ -45,8 +45,8 @@ public class Main {
             case ("buscarId"):
                 startTime = System.currentTimeMillis();
 
-                for (int i = 0; i < 100; i++) {
-                    randomNumber = random.nextInt(n + 100);
+                for (int i = 0; i < casos; i++) {
+                    randomNumber = random.nextInt(n + casos);
                     findItem(randomNumber);
                 }
                 endTime = System.currentTimeMillis();
@@ -60,8 +60,8 @@ public class Main {
             case ("eliminar"):
                 startTime = System.currentTimeMillis();
 
-                for (int i = 0; i < 100; i++) {
-                    randomNumber = random.nextInt(n +100);
+                for (int i = 0; i < casos; i++) {
+                    randomNumber = random.nextInt(n +casos);
                     removeItem(randomNumber);
 
                 }
@@ -72,8 +72,8 @@ public class Main {
                 break;
             case ("buscarNombre"):
 int i=0;
-                while (i < 100) {
-                    randomNumber=random.nextInt(n+100 );
+                while (i < casos) {
+                    randomNumber=random.nextInt(n+casos );
                     //System.out.println(randomNumber);
 if(findItem(randomNumber)!=null) {
     nombres.add(findItem(randomNumber).getNombre());
@@ -96,7 +96,7 @@ if(findItem(randomNumber)!=null) {
                 break;
 
             case ("nuevo"):
-                miRopa=generarDatosPrueba(n);
+                miRopa=generarDatosPrueba(n, casos);
 /*
                startTime = System.currentTimeMillis();
 
@@ -319,23 +319,27 @@ if(findItem(randomNumber)!=null) {
         System.out.println("\n\n\n\t\tPRUEBAS");
         System.out.println("\n\t\tTreeMap");
         String[] operaciones = {"nuevo", "buscarNombre", "buscarId", "eliminar"};
+        int casos=100;
+
         for (int i = 4; i < 9; i++) {
+            System.out.println("\n\n\nInitial size: "+miRopa.size());
+
             //if (i == 8) { miRopa = generarDatosPrueba((int)(Math.pow(10,i)/2));}
             //else {miRopa = generarDatosPrueba((int)Math.pow(10,i));}
 
             for (String operacion : operaciones) {
                 if (i == 8) {
-                    System.out.println("\n" + operacion + " :");
+                    System.out.println("\n" + operacion + ":");
 
-                    medirTiempo((int) (Math.pow(10, i) / 2), operacion);
+                    medirTiempo((int) (Math.pow(10, i) / 2), operacion,casos);
                 } else {
-                    System.out.println("\n" + operacion + " : ");
+                    System.out.println("\n" + operacion + ": ");
 
-                    medirTiempo((int) Math.pow(10, i), operacion);
+                    medirTiempo((int) Math.pow(10, i), operacion,casos);
                 }//  }
 
             }
-            miRopa=null;
+            miRopa.clear();
             System.gc();
 
 
@@ -355,7 +359,7 @@ else {
 
                     medirTiempoFav((int) (Math.pow(10, i) / 2), operacion);
                 } else {
-                    System.out.println("\n" + operacion + " : ");
+                    System.out.println("\n" + operacion + ": ");
 
                     medirTiempoFav((int) Math.pow(10, i), operacion);
                 }//  }
