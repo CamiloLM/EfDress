@@ -1,5 +1,6 @@
 package com.datastructures.efdress;
 
+import static com.datastructures.efdress.Articulo.generarDatosPrueba;
 import static com.datastructures.efdress.Articulo.obtenerTipos;
 import com.datastructures.efdress.enums.Clase;
 
@@ -51,7 +52,7 @@ public class Main {
                 endTime = System.currentTimeMillis();
                 time = (endTime - startTime);
 
-                System.out.println("Time: " + time);
+                System.out.println("Tiempo: " + time);
 
                 break;
 
@@ -66,46 +67,49 @@ public class Main {
                 }
                 endTime = System.currentTimeMillis();
                 time = (endTime - startTime);
-                System.out.println("Time: " + time);
+                System.out.println("Tiempo: " + time);
 
                 break;
             case ("buscarNombre"):
-
-                for (int i = 0; i < 100; i++) {
+int i=0;
+                while (i < 100) {
                     randomNumber=random.nextInt(n+100 );
-                    System.out.println(randomNumber);
-                    nombres.add(findItem(randomNumber).getNombre());
-
+                    //System.out.println(randomNumber);
+if(findItem(randomNumber)!=null) {
+    nombres.add(findItem(randomNumber).getNombre());
+    i++;
+}
                 }
 
                 startTime = System.currentTimeMillis();
 
 
-                for (int i = 0; i < 100; i++) {
+                for (int j=0; j<nombres.size();j++) {
 
-                    findItem(nombres.get(i));
+                    findItem(nombres.get(j));
 
                 }
                 endTime = System.currentTimeMillis();
                 time = (endTime - startTime);
-                System.out.println("Time: " + time);
+                System.out.println("Tiempo: " + time);
 
                 break;
 
             case ("nuevo"):
-
-
+                miRopa=generarDatosPrueba(n);
+/*
                startTime = System.currentTimeMillis();
 
                 for (int i = 0; i < 100; i++) {
                     proofItem = new Articulo(n+i, "Camiseta verde gym", "Lycra", "Deportiva", "TopMujer", "Camisetas", "url");
                     miRopa.put(n+i, proofItem);
                 }
-                System.out.print("Tamaño actual : " + miRopa.size()+ ". ");
                 endTime = System.currentTimeMillis();
+                System.out.print("Tamaño actual : " + miRopa.size()+ ". ");
                 time = endTime - startTime;
-                System.out.println("Total: " + time);
 
+                System.out.println("Total: " + time);
+*/
                 break;
         }
     }
@@ -276,13 +280,12 @@ public class Main {
         System.out.println("\nMirar toda la ropa");
         System.out.println(miRopa);
 
-        favs.saveFavorite(miRopa.get(1).getId());
 
-        /*Probando los favoritos
+        favs.saveFavorite(miRopa.get(0).getId());
         favs.saveFavorite(miRopa.get(1).getId());
-        favs.saveFavorite(miRopa.get(2).getId());
-        favs.saveFavorite(miRopa.get(3).getId());
         /*
+        favs.saveFavorite(miRopa.get(3).getId());
+
         favs.saveFavorite(miRopa.get(4).getId());
         favs.saveFavorite(miRopa.get(5).getId());
         favs.saveFavorite(miRopa.get(6).getId());
@@ -317,8 +320,8 @@ public class Main {
         System.out.println("\n\t\tTreeMap");
         String[] operaciones = {"nuevo", "buscarNombre", "buscarId", "eliminar"};
         for (int i = 4; i < 9; i++) {
-            if (i == 8) { miRopa = Articulo.generarDatosPrueba((int)(Math.pow(10,i)/2));}
-            else {miRopa = Articulo.generarDatosPrueba((int)Math.pow(10,i));}
+            //if (i == 8) { miRopa = generarDatosPrueba((int)(Math.pow(10,i)/2));}
+            //else {miRopa = generarDatosPrueba((int)Math.pow(10,i));}
 
             for (String operacion : operaciones) {
                 if (i == 8) {
@@ -348,7 +351,7 @@ else {
             }
             for (String operacion : op) {
                 if (i == 8) {
-                    System.out.println("\n" + operacion + " :");
+                    System.out.println("\n" + operacion + ":");
 
                     medirTiempoFav((int) (Math.pow(10, i) / 2), operacion);
                 } else {

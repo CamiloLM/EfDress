@@ -77,7 +77,7 @@ public class Articulo implements Comparable<Articulo> {
         Enum<?>[] tipos;
         Random random = new Random();
         int i = 1;
-        System.out.println("\n\nGenerando "+ numeroCasos+" datos de prueba...");
+        System.out.println("Generando "+ numeroCasos+" datos de prueba...");
         startTime=System.currentTimeMillis();
         while (i <= numeroCasos) {
             Material ranMaterial = materiales[random.nextInt(materiales.length)];
