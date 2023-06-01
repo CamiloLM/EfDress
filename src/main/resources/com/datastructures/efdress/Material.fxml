@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.datastructures.efdress.SceneController">
+   <children>
+      <AnchorPane layoutX="-17.0" layoutY="-37.0" prefHeight="0.0" prefWidth="0.0" />
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@BASE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="8.0" layoutY="4.0">
+         <image>
+            <Image url="@BASELETRAS.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="8.0" layoutY="4.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@page_3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="564.0" fitWidth="966.0" layoutX="145.0" layoutY="82.0">
+         <image>
+            <Image url="@Interfaz/Nuevo%20articuloeditar/page_11.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="49.0" fitWidth="244.0" layoutX="506.0" layoutY="135.0">
+         <image>
+            <Image url="@Interfaz/Nuevo%20articuloeditar/Material/page_40.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="360.0" fitWidth="271.0" layoutX="333.0" layoutY="205.0">
+         <image>
+            <Image url="@Interfaz/Nuevo%20articuloeditar/Material/page_41.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="63.0" fitWidth="244.0" layoutX="635.0" layoutY="336.0">
+         <image>
+            <Image url="@Interfaz/Nuevo%20articuloeditar/Material/page_39.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="632.0" layoutY="332.0" mnemonicParsing="false" onAction="#switchToNewArticle" prefHeight="65.0" prefWidth="244.0" style="-fx-background-color: transparent;" />
+   </children>
+</AnchorPane>

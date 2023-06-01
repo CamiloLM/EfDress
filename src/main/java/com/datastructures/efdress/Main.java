@@ -2,10 +2,17 @@ package com.datastructures.efdress;
 
 import static com.datastructures.efdress.Articulo.obtenerTipos;
 import com.datastructures.efdress.enums.Clase;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.scene.layout.StackPane;
+import java.io.IOException;
+import java.util.function.Supplier;
 import java.util.*;
 
-public class Main {
+public class Main extends Application{
     protected static Articulo proofItem;
 
     protected static TreeMap<Integer, Articulo> miRopa = new TreeMap<>();
@@ -245,6 +252,7 @@ public class Main {
 
     public static void main(String[] args) {
 
+        launch();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -365,26 +373,19 @@ else {
         }
 
     }
-}
-    /*
+
     @Override
     public void start(Stage stage) throws IOException {
         // Scene new item (type)
-        Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-        Scene scene = new Scene(root, 1280, 720);
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
 
-        grid2.add(new Label("What kind of item is it?"), 0, 0);
-        grid2.add(addItemC2, 1, 0);
-        grid2.add(prevSceneB, 1, 1);
-        Group root2 = (Group) newItScene2.getRoot();
-        root2.getChildren().add(grid2);
-
         // Scene new Item (Body part)
-        final ComboBox addItemC1 = new ComboBox();
+       /* final ComboBox addItemC1 = new ComboBox();
         addItemC1.getItems().addAll(
                 "Upper Body (Tops, coats/jackets, etc.)",
                 "Lower Body (Trousers, skirts, etc.)",
@@ -479,6 +480,6 @@ else {
         VBox layout2 = new VBox(20);
         layout2.getChildren().addAll(addItemb);
         Scene mainScene = new Scene(layout2, 500, 400);
-
+*/
     }
-    */
+}

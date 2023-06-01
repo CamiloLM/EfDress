@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.datastructures.efdress.SceneController">
+   <children>
+      <AnchorPane layoutX="-17.0" layoutY="-37.0" prefHeight="0.0" prefWidth="0.0" />
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-2.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@BASE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="8.0" layoutY="4.0">
+         <image>
+            <Image url="@BASELETRAS.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="720.0" fitWidth="1280.0" layoutX="-1.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@page_3.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="564.0" fitWidth="966.0" layoutX="145.0" layoutY="82.0">
+         <image>
+            <Image url="@Interfaz/Nuevo%20articuloeditar/page_11.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="494.0" fitWidth="885.0" layoutX="176.0" layoutY="112.0">
+         <image>
+            <Image url="@Interfaz/Nuevo%20articuloeditar/Menu%20nuevo%20articulo/page_45.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="152.0" fitWidth="778.0" layoutX="225.0" layoutY="365.0">
+         <image>
+            <Image url="@Interfaz/Nuevo%20articuloeditar/Menu%20nuevo%20articulo/page_46.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="252.0" layoutY="359.0" mnemonicParsing="false" onAction="#switchToName" prefHeight="73.0" prefWidth="265.0" style="-fx-background-color: transparent;" />
+      <Button layoutX="233.0" layoutY="449.0" mnemonicParsing="false" onAction="#switchToMaterial" prefHeight="65.0" prefWidth="309.0" style="-fx-background-color: transparent;" />
+      <Button layoutX="705.0" layoutY="367.0" mnemonicParsing="false" onAction="#switchToOcasion" prefHeight="65.0" prefWidth="309.0" style="-fx-background-color: transparent;" />
+      <Button layoutX="782.0" layoutY="449.0" mnemonicParsing="false" onAction="#switchToArticleType" prefHeight="65.0" prefWidth="159.0" style="-fx-background-color: transparent;" />
+      <ImageView fitHeight="45.0" fitWidth="200.0" layoutX="514.0" layoutY="628.0">
+         <image>
+            <Image url="@Interfaz/Ver%20detalles/page_10.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="512.0" layoutY="618.0" mnemonicParsing="false" onAction="#switchToCollection" prefHeight="65.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+   </children>
+</AnchorPane>
