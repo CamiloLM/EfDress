@@ -130,9 +130,6 @@ public class Articulo implements Comparable<Articulo> {
         return ropaPrueba;
     }
 
-
-
-
     public static Enum<?>[] obtenerTipos(String className) {
         switch (className) {
             case "Abrigo":
@@ -155,7 +152,7 @@ public class Articulo implements Comparable<Articulo> {
     }
 
     public void setId(int id) {
-        this.id = id;
+        if (id >= 0) this.id = id;
     }
 
     public int getId() {
