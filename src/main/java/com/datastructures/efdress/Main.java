@@ -1,5 +1,6 @@
 package com.datastructures.efdress;
 
+import static com.datastructures.efdress.Articulo.generarDatosPrueba;
 import static com.datastructures.efdress.Articulo.obtenerTipos;
 import com.datastructures.efdress.enums.Clase;
 import javafx.fxml.FXMLLoader;
@@ -17,167 +18,144 @@ public class Main extends Application{
 
     protected static TreeMap<Integer, Articulo> miRopa = new TreeMap<>();
     protected static Favorito favs = Favorito.getInstance();
+    protected static Conjunto conj = new Conjunto();
 
-    //    public static void guardarObjeto(LinkedList<Articulo> ropa) {
-//        try {
-//            try (var writeFile = new ObjectOutputStream(new FileOutputStream(".\\src\\main\\java\\com\\datastructures\\efdress\\datos.dat"))) {
-//                writeFile.writeObject(ropa);
-//                System.out.println("Objeto guardado con exito.");
-//            }
-//        } catch (IOException e) {
-//            System.out.println(e);
-//        }
-//    }
-//
-//    public static LinkedList<Articulo> cargarObjeto() {
-//        try {
-//            try (var readFile = new ObjectInputStream(new FileInputStream(".\\src\\main\\java\\com\\datastructures\\efdress\\datos.dat"))) {
-//                LinkedList<Articulo> ropa = (LinkedList) readFile.readObject();
-//                return ropa;
-//            }
-//        } catch (IOException | ClassNotFoundException e) {
-//            System.out.println(e);
-//            return null;
-//        }
-//    }
-    public static void medirTiempo(int n, String funcion) {
+    public static void medirTiempo(int n, String funcion, int casos) {
         // Se generan n instancias de la clase artículo aleatoriamente
         Random random = new Random();
         int randomNumber;
         long startTime, endTime, time;
         String nombre;
-        ArrayList<String> nombres= new ArrayList<>();
+        ArrayList < String > nombres = new ArrayList < > ();
         switch (funcion) {
-            case ("buscarId"):
-                startTime = System.currentTimeMillis();
+        case ("buscarId"):
+            startTime = System.currentTimeMillis();
 
-                for (int i = 0; i < 100; i++) {
-                    randomNumber = random.nextInt(n + 100);
-                    findItem(randomNumber);
-                }
-                endTime = System.currentTimeMillis();
-                time = (endTime - startTime);
+            for (int i = 0; i < casos; i++) {
+                randomNumber = random.nextInt(n + casos);
+                findItem(randomNumber);
+            }
+            endTime = System.currentTimeMillis();
+            time = (endTime - startTime);
 
-                System.out.println("Time: " + time);
+            System.out.println("Tiempo: " + time);
 
-                break;
+            break;
 
+        case ("eliminar"):
+            startTime = System.currentTimeMillis();
 
-            case ("eliminar"):
-                startTime = System.currentTimeMillis();
+            for (int i = 0; i < casos; i++) {
+                randomNumber = random.nextInt(n + casos);
+                removeItem(randomNumber);
 
-                for (int i = 0; i < 100; i++) {
-                    randomNumber = random.nextInt(n +100);
-                    removeItem(randomNumber);
+            }
+            endTime = System.currentTimeMillis();
+            time = (endTime - startTime);
+            System.out.println("Tiempo: " + time);
 
-                }
-                endTime = System.currentTimeMillis();
-                time = (endTime - startTime);
-                System.out.println("Time: " + time);
-
-                break;
-            case ("buscarNombre"):
-
-                for (int i = 0; i < 100; i++) {
-                    randomNumber=random.nextInt(n+100 );
-                    System.out.println(randomNumber);
+            break;
+        case ("buscarNombre"):
+            int i = 0;
+            while (i < casos) {
+                randomNumber = random.nextInt(n + casos);
+                //System.out.println(randomNumber);
+                if (findItem(randomNumber) != null) {
                     nombres.add(findItem(randomNumber).getNombre());
-
+                    i++;
                 }
+            }
 
-                startTime = System.currentTimeMillis();
+            startTime = System.currentTimeMillis();
 
+            for (int j = 0; j < nombres.size(); j++) {
 
-                for (int i = 0; i < 100; i++) {
+                findItem(nombres.get(j));
 
-                    findItem(nombres.get(i));
+            }
+            endTime = System.currentTimeMillis();
+            time = (endTime - startTime);
+            System.out.println("Tiempo: " + time);
 
-                }
-                endTime = System.currentTimeMillis();
-                time = (endTime - startTime);
-                System.out.println("Time: " + time);
+            break;
 
-                break;
+        case ("nuevo"):
+            miRopa = generarDatosPrueba(n, casos);
+            /*
+                           startTime = System.currentTimeMillis();
 
-            case ("nuevo"):
+                            for (int i = 0; i < 100; i++) {
+                                proofItem = new Articulo(n+i, "Camiseta verde gym", "Lycra", "Deportiva", "TopMujer", "Camisetas", "url");
+                                miRopa.put(n+i, proofItem);
+                            }
+                            endTime = System.currentTimeMillis();
+                            System.out.print("Tamaño actual : " + miRopa.size()+ ". ");
+                            time = endTime - startTime;
 
-
-               startTime = System.currentTimeMillis();
-
-                for (int i = 0; i < 100; i++) {
-                    proofItem = new Articulo(n+i, "Camiseta verde gym", "Lycra", "Deportiva", "TopMujer", "Camisetas", "url");
-                    miRopa.put(n+i, proofItem);
-                }
-                System.out.print("Tamaño actual : " + miRopa.size()+ ". ");
-                endTime = System.currentTimeMillis();
-                time = endTime - startTime;
-                System.out.println("Total: " + time);
-
-                break;
+                            System.out.println("Total: " + time);
+            */
+            break;
         }
     }
-
 
     public static void medirTiempoFav(int n, String funcion) {
         // Se generan n instancias de la clase artículo aleatoriamente
         Random random = new Random();
+        int casos=1;
         int randomNumber;
         long startTime, endTime, time;
-        ArrayList<Integer> ids= new ArrayList<>();
+        ArrayList < Integer > ids = new ArrayList < > ();
         switch (funcion) {
-            case ("eliminar"):
-                startTime = System.currentTimeMillis();
+        case ("eliminar"):
+            startTime = System.currentTimeMillis();
 
-                for (int i = 0; i < 100; i++) {
-                    randomNumber = random.nextInt(n +100);
-                    favs.deleteFavorite(randomNumber);
+            for (int i = 0; i < casos; i++) {
+                randomNumber = random.nextInt(n + 100);
+                favs.deleteFavorite(randomNumber);
 
-                }
-                endTime = System.currentTimeMillis();
-                time = (endTime - startTime);
-                System.out.println("Time: " + time);
+            }
+            endTime = System.currentTimeMillis();
+            time = (endTime - startTime);
+            System.out.println("Time: " + time);
 
-                break;
-            case ("buscarId"):
+            break;
+        case ("buscarId"):
 
-                for (int i = 0; i < 100; i++) {
-                    ids.add(random.nextInt(n+100 ));
+            for (int i = 0; i < casos; i++) {
+                ids.add(random.nextInt(n + 100));
 
-                }
+            }
 
-                startTime = System.currentTimeMillis();
+            startTime = System.currentTimeMillis();
 
+            for (int i = 0; i < casos; i++) {
 
-                for (int i = 0; i < 100; i++) {
+                favs.getFav(ids.get(i));
 
-                    favs.getFav(ids.get(i));
+            }
+            endTime = System.currentTimeMillis();
+            time = (endTime - startTime);
+            System.out.println("Time: " + time);
 
-                }
-                endTime = System.currentTimeMillis();
-                time = (endTime - startTime);
-                System.out.println("Time: " + time);
+            break;
 
-                break;
+        case ("nuevo"):
 
-            case ("nuevo"):
+            for (int i = 0; i < n; i++) {
+                favs.saveFavorite(i);
+            }
+            startTime = System.currentTimeMillis();
 
-                for (int i = 0; i < n; i++) {
-                    favs.saveFavorite(i);
-                }
-                startTime = System.currentTimeMillis();
+            for (int i = 0; i < casos; i++) {
+                favs.saveFavorite(i);
+            }
+            endTime = System.currentTimeMillis();
+            time = endTime - startTime;
+            System.out.println("Total: " + time);
 
-                for (int i = 0; i < 100; i++) {
-                    favs.saveFavorite(i);
-                }
-                endTime = System.currentTimeMillis();
-                time = endTime - startTime;
-                System.out.println("Total: " + time);
-
-                break;
+            break;
         }
     }
-
-
 
     public static String[] userInputUtil(Scanner scanner) {
         String[] values = new String[6];
@@ -191,7 +169,7 @@ public class Main extends Application{
         System.out.println("De las siguientes opciones " + Arrays.toString(Clase.values()));
         System.out.print("Clase: ");
         values[3] = scanner.nextLine();
-        Enum<?>[] tipos = obtenerTipos(values[3]);
+        Enum < ? > [] tipos = obtenerTipos(values[3]);
         if (tipos != null) {
             System.out.println("De las siguientes opciones " + Arrays.toString(tipos));
             System.out.print("Tipo: ");
@@ -203,7 +181,7 @@ public class Main extends Application{
     }
 
     public static Articulo newItem(int id, String nombre, String material, String ocasion,
-                                   String clase, String tipo, String ubicacion) {
+        String clase, String tipo, String ubicacion) {
         Articulo nuevo = new Articulo();
         try {
             nuevo.crearArticulo(id, nombre, material, ocasion, clase, tipo, ubicacion);
@@ -217,7 +195,7 @@ public class Main extends Application{
     }
 
     public static Articulo updateItem(int id, String nombre, String material, String ocasion,
-                                      String clase, String tipo, String ubicacion) {
+        String clase, String tipo, String ubicacion) {
         Articulo actual = findItem(id);
         if (actual != null) {
             try {
@@ -238,7 +216,7 @@ public class Main extends Application{
     }
 
     public static Articulo findItem(String patron) {
-        for (Articulo art : miRopa.values()) {
+        for (Articulo art: miRopa.values()) {
             if (art.getNombre().contains(patron)) {
                 return art;
             }
@@ -251,15 +229,16 @@ public class Main extends Application{
     }
 
     public static void main(String[] args) {
-
         launch();
-
+        /*
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nCreando un nuevo objeto por consola");
         String[] arr = userInputUtil(scanner);
         System.out.println(newItem(miRopa.size(), arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
+        */
 
+        // TODO : Hay que cambiar el id, no podemos usar el size ya que al eliminar un objeto del principio los ids se repiten
         System.out.println("\nAgregando más objetos por codigo");
         newItem(miRopa.size(), "Abrigo lindo", "Lana", "Casual", "Abrigo", "Chaquetas", "");
         newItem(miRopa.size(), "Botas rockeras", "Cuero", "Casual", "Calzado", "Botas", "");
@@ -275,38 +254,29 @@ public class Main extends Application{
         System.out.println(findItem(1));
 
         System.out.println("\nAcutalizar objeto");
-        updateItem(1, "Sombrero Fachero", "Poliester", "Fiesta", "Sombrero", "Sombrero", "");
-        System.out.println(findItem(1));
+        System.out.println(updateItem(1, "Sombrero Fachero", "Poliester", "Fiesta", "Sombrero", "Sombrero", ""));
 
         System.out.println("\nEliminar objeto");
         System.out.println(removeItem(2));
 
         System.out.println("\nMirar toda la ropa");
         System.out.println(miRopa);
-
+        
+        
+        // Favoritos
+        favs.saveFavorite(miRopa.get(0).getId());
         favs.saveFavorite(miRopa.get(1).getId());
-
-        /*Probando los favoritos
-        favs.saveFavorite(miRopa.get(1).getId());
-        favs.saveFavorite(miRopa.get(2).getId());
-        favs.saveFavorite(miRopa.get(3).getId());
-        /*
-        favs.saveFavorite(miRopa.get(4).getId());
-        favs.saveFavorite(miRopa.get(5).getId());
-        favs.saveFavorite(miRopa.get(6).getId());
-        favs.saveFavorite(miRopa.get(7).getId());
-        favs.saveFavorite(miRopa.get(8).getId());
-*/
+        
         //Obteniendo favorito por id
+        System.out.println(findItem(favs.getFav(0)));
         System.out.println(findItem(favs.getFav(1)));
-        System.out.println(findItem(favs.getFav(2)));
 
         //Este item no existe
         System.out.println(findItem(favs.getFav(9)));
 
         //Obteniendo todos los favoritos
         Integer[] favoritos = favs.getAllFavs();
-        for (Integer id : favoritos) {
+        for (Integer id: favoritos) {
             System.out.print(id + ", ");
         }
         //Eliminando favorito
@@ -317,62 +287,107 @@ public class Main extends Application{
         //Eliminando todos los favoritos
         favs.deleteAll();
         System.out.println(favs);
-
+        
+        
+        // Conjunto de ropa
+        miRopa.clear();
+        newItem(0, "Cacucha", "Poliester", "Casual", "Sombrero", "Gorra", "");
+        newItem(1, "Abrigo lindo", "Lana", "Casual", "Abrigo", "Chaquetas", "");
+        newItem(2, "Camisa comoda", "Lana", "Diario", "TopHombre", "Camisetas", "");
+        newItem(3, "Botas rockeras", "Cuero", "Casual", "Calzado", "Botas", "");
+        newItem(4, "Pantalonzote", "Seda", "Formal", "Pantalon", "Pantalones", "");
+        newItem(5, "Pijama Pikachu", "Algodon", "Dormir", "Entero", "Pijamas", "");
+        
+        System.out.println("\nAñadiendo por articulo");
+        conj.add(findItem(0));
+        conj.add(findItem(1));
+        conj.add(findItem(2));
+        
+        System.out.println("\nAñadiendo por indice");
+        conj.add(5,3);
+        conj.add(4,4);
+        conj.add(3,5);
+        
+        System.out.println(conj);
+        
+        System.out.println("\nEliminando por articulo");
+        conj.remove(findItem(1));
+        
+        System.out.println("\nEliminando por articulo");
+        conj.remove(3);
+        
+        System.out.println(conj);
+        
+        System.out.println(conj.isEmpty());
+        conj.removeAll();
+        System.out.println(conj.isEmpty());
+        
         /*
-         * Pruebas con muchos datos
-         * */
+        Pruebas con muchos datos
         System.out.println("\n\n\n\t\tPRUEBAS");
         System.out.println("\n\t\tTreeMap");
-        String[] operaciones = {"nuevo", "buscarNombre", "buscarId", "eliminar"};
-        for (int i = 4; i < 9; i++) {
-            if (i == 8) { miRopa = Articulo.generarDatosPrueba((int)(Math.pow(10,i)/2));}
-            else {miRopa = Articulo.generarDatosPrueba((int)Math.pow(10,i));}
+        String[] operaciones = {
+            "nuevo",
+            "buscarNombre",
+            "buscarId",
+            "eliminar"
+        };
+        int casos = 100;
 
-            for (String operacion : operaciones) {
+        for (int i = 4; i < 8; i++) {
+            System.out.println("\n\n\nInitial size: " + miRopa.size());
+
+            //if (i == 8) { miRopa = generarDatosPrueba((int)(Math.pow(10,i)/2));}
+            //else {miRopa = generarDatosPrueba((int)Math.pow(10,i));}
+
+            for (String operacion: operaciones) {
                 if (i == 8) {
-                    System.out.println("\n" + operacion + " :");
+                    System.out.println("\n" + operacion + ":");
 
-                    medirTiempo((int) (Math.pow(10, i) / 2), operacion);
+                    medirTiempo((int)(Math.pow(10, i) / 2), operacion, casos);
                 } else {
-                    System.out.println("\n" + operacion + " : ");
+                    System.out.println("\n" + operacion + ": ");
 
-                    medirTiempo((int) Math.pow(10, i), operacion);
-                }//  }
+                    medirTiempo((int) Math.pow(10, i), operacion, casos);
+                } //  }
 
             }
-            miRopa=null;
+            miRopa.clear();
             System.gc();
-
 
         }
 
         System.out.println("\n\t\tFavoritos (Linked List)");
-        String[] op = {"nuevo", "buscarId", "eliminar"};
-        for (int i = 4; i < 9; i++) {
-            if(i==8)System.out.println("Prueba con "+(int)(Math.pow(10, i) / 2));
-else {
-                System.out.println("Prueba con "+(int)Math.pow(10, i));
+        String[] op = {
+            "nuevo",
+            "buscarId",
+            "eliminar"
+        };
+        for (int i = 4; i < 8; i++) {
+            if (i == 8) System.out.println("Prueba con " + (int)(Math.pow(10, i) / 2));
+            else {
+                System.out.println("Prueba con " + (int) Math.pow(10, i));
 
             }
-            for (String operacion : op) {
+            for (String operacion: op) {
                 if (i == 8) {
-                    System.out.println("\n" + operacion + " :");
+                    System.out.println("\n" + operacion + ":");
 
-                    medirTiempoFav((int) (Math.pow(10, i) / 2), operacion);
+                    medirTiempoFav((int)(Math.pow(10, i) / 2), operacion);
                 } else {
-                    System.out.println("\n" + operacion + " : ");
+                    System.out.println("\n" + operacion + ": ");
 
                     medirTiempoFav((int) Math.pow(10, i), operacion);
-                }//  }
+                } //  }
 
             }
             favs.deleteAll();
             System.gc();
 
-
         }
-
+        */
     }
+
 
     @Override
     public void start(Stage stage) throws IOException {

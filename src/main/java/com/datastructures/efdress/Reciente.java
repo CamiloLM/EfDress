@@ -8,17 +8,10 @@ public class Reciente {
     private static Reciente instance;
     private LinkedList<Integer> recents;
 
-
-
-
     private Reciente(){
         recents= new LinkedList<>();
     }
 
-    /*
-    Solo se permite crear una unica instancia de Favorito, ya que solo hay un "Favritos" disponibles
-    para el usuario (Hasta el momento).
-     */
     public static Reciente getInstance(){
         if(Reciente.instance==null){
             instance= new Reciente();
