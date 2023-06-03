@@ -94,6 +94,7 @@ public class Main {
     public static void medirTiempoFav(int n, String funcion) {
         // Se generan n instancias de la clase artículo aleatoriamente
         Random random = new Random();
+        int casos=1;
         int randomNumber;
         long startTime, endTime, time;
         ArrayList < Integer > ids = new ArrayList < > ();
@@ -101,7 +102,7 @@ public class Main {
         case ("eliminar"):
             startTime = System.currentTimeMillis();
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < casos; i++) {
                 randomNumber = random.nextInt(n + 100);
                 favs.deleteFavorite(randomNumber);
 
@@ -113,14 +114,14 @@ public class Main {
             break;
         case ("buscarId"):
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < casos; i++) {
                 ids.add(random.nextInt(n + 100));
 
             }
 
             startTime = System.currentTimeMillis();
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < casos; i++) {
 
                 favs.getFav(ids.get(i));
 
@@ -138,7 +139,7 @@ public class Main {
             }
             startTime = System.currentTimeMillis();
 
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < casos; i++) {
                 favs.saveFavorite(i);
             }
             endTime = System.currentTimeMillis();
@@ -326,7 +327,7 @@ public class Main {
         };
         int casos = 100;
 
-        for (int i = 4; i < 9; i++) {
+        for (int i = 4; i < 8; i++) {
             System.out.println("\n\n\nInitial size: " + miRopa.size());
 
             //if (i == 8) { miRopa = generarDatosPrueba((int)(Math.pow(10,i)/2));}
@@ -355,7 +356,7 @@ public class Main {
             "buscarId",
             "eliminar"
         };
-        for (int i = 4; i < 9; i++) {
+        for (int i = 4; i < 8; i++) {
             if (i == 8) System.out.println("Prueba con " + (int)(Math.pow(10, i) / 2));
             else {
                 System.out.println("Prueba con " + (int) Math.pow(10, i));
