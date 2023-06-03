@@ -7,8 +7,6 @@ import com.datastructures.efdress.enums.Clase;
 import java.util.*;
 
 public class Main {
-    protected static Articulo proofItem;
-
     protected static TreeMap < Integer, Articulo > miRopa = new TreeMap <> ();
     protected static Favorito favs = Favorito.getInstance();
     protected static Conjunto conj = new Conjunto();
@@ -223,12 +221,15 @@ public class Main {
 
     public static void main(String[] args) {
 
+        /*
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\nCreando un nuevo objeto por consola");
         String[] arr = userInputUtil(scanner);
         System.out.println(newItem(miRopa.size(), arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
+        */
 
+        // TODO : Hay que cambiar el id, no podemos usar el size ya que al eliminar un objeto del principio los ids se repiten
         System.out.println("\nAgregando más objetos por codigo");
         newItem(miRopa.size(), "Abrigo lindo", "Lana", "Casual", "Abrigo", "Chaquetas", "");
         newItem(miRopa.size(), "Botas rockeras", "Cuero", "Casual", "Calzado", "Botas", "");
@@ -244,8 +245,7 @@ public class Main {
         System.out.println(findItem(1));
 
         System.out.println("\nAcutalizar objeto");
-        updateItem(1, "Sombrero Fachero", "Poliester", "Fiesta", "Sombrero", "Sombrero", "");
-        System.out.println(findItem(1));
+        System.out.println(updateItem(1, "Sombrero Fachero", "Poliester", "Fiesta", "Sombrero", "Sombrero", ""));
 
         System.out.println("\nEliminar objeto");
         System.out.println(removeItem(2));
@@ -316,7 +316,7 @@ public class Main {
 
         /*
          * Pruebas con muchos datos
-         * */
+         **/
         System.out.println("\n\n\n\t\tPRUEBAS");
         System.out.println("\n\t\tTreeMap");
         String[] operaciones = {
