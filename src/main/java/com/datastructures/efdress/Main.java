@@ -16,6 +16,7 @@ import java.util.*;
 public class Main extends Application{
     protected static Articulo proofItem;
 
+    private static int size = 0;
     protected static TreeMap<Integer, Articulo> miRopa = new TreeMap<>();
     protected static Favorito favs = Favorito.getInstance();
     protected static Conjunto conj = new Conjunto();
@@ -180,12 +181,56 @@ public class Main extends Application{
         return values;
     }
 
+    public static void recorrerRopa(Scanner scanner) {
+        boolean salir = false;
+        NavigableSet<Integer> navigableSet = miRopa.navigableKeySet();
+        Integer currentElement = navigableSet.first();
+
+        while (!salir) {
+            System.out.println("\nElemento actual: " + findItem(currentElement));
+            System.out.println("1. Recorrer un elemento hacia adelante");
+            System.out.println("2. Recorrer un elemento hacia atrás");
+            System.out.println("3. Salir");
+            System.out.print("Ingrese su opción: ");
+
+            int opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1:
+                    if (currentElement != navigableSet.last()) {
+                        currentElement = navigableSet.higher(currentElement);
+                    } else {
+                        System.out.println("No hay más elementos hacia adelante.");
+                    }
+                    break;
+
+                case 2:
+                    if (currentElement != navigableSet.first()) {
+                        currentElement = navigableSet.lower(currentElement);
+                    } else {
+                        System.out.println("No hay más elementos hacia atrás.");
+                    }
+                    break;
+
+                case 3:
+                    salir = true;
+                    break;
+
+                default:
+                    System.out.println("Opción inválida. Intente nuevamente.");
+                    break;
+            }
+
+            System.out.println();
+        }
+    }
     public static Articulo newItem(int id, String nombre, String material, String ocasion,
         String clase, String tipo, String ubicacion) {
         Articulo nuevo = new Articulo();
         try {
             nuevo.crearArticulo(id, nombre, material, ocasion, clase, tipo, ubicacion);
             miRopa.put(id, nuevo);
+            size += 1;
             System.out.println("Articulo añadido con exito");
             return nuevo;
         } catch (IllegalArgumentException e) {
@@ -228,24 +273,27 @@ public class Main extends Application{
         return miRopa.remove(id);
     }
 
+
     public static void main(String[] args) {
         launch();
-        /*
         Scanner scanner = new Scanner(System.in);
 
+        /*
         System.out.println("\nCreando un nuevo objeto por consola");
         String[] arr = userInputUtil(scanner);
-        System.out.println(newItem(miRopa.size(), arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
-        */
+        System.out.println(newItem(size, arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
+         */
 
-        // TODO : Hay que cambiar el id, no podemos usar el size ya que al eliminar un objeto del principio los ids se repiten
         System.out.println("\nAgregando más objetos por codigo");
-        newItem(miRopa.size(), "Abrigo lindo", "Lana", "Casual", "Abrigo", "Chaquetas", "");
-        newItem(miRopa.size(), "Botas rockeras", "Cuero", "Casual", "Calzado", "Botas", "");
-        newItem(miRopa.size(), "Pantalonzote", "Seda", "Formal", "Pantalon", "Pantalones", "");
+        newItem(size, "Abrigo lindo", "Lana", "Casual", "Abrigo", "Chaquetas", "");
+        newItem(size, "Botas rockeras", "Cuero", "Casual", "Calzado", "Botas", "");
+        newItem(size, "Pantalonzote", "Seda", "Formal", "Pantalon", "Pantalones", "");
 
         System.out.println("\nMirar toda la ropa");
         System.out.println(miRopa);
+
+        System.out.println("\nRecorrer la ropa elemento por elemento");
+        //recorrerRopa(scanner);
 
         System.out.println("\nBuscar por nombre");
         System.out.println(findItem("lindo"));
@@ -261,7 +309,6 @@ public class Main extends Application{
 
         System.out.println("\nMirar toda la ropa");
         System.out.println(miRopa);
-        
         
         // Favoritos
         favs.saveFavorite(miRopa.get(0).getId());
@@ -297,7 +344,8 @@ public class Main extends Application{
         newItem(3, "Botas rockeras", "Cuero", "Casual", "Calzado", "Botas", "");
         newItem(4, "Pantalonzote", "Seda", "Formal", "Pantalon", "Pantalones", "");
         newItem(5, "Pijama Pikachu", "Algodon", "Dormir", "Entero", "Pijamas", "");
-        
+
+
         System.out.println("\nAñadiendo por articulo");
         conj.add(findItem(0));
         conj.add(findItem(1));
@@ -321,9 +369,9 @@ public class Main extends Application{
         System.out.println(conj.isEmpty());
         conj.removeAll();
         System.out.println(conj.isEmpty());
-        
+
         /*
-        Pruebas con muchos datos
+        // Pruebas con muchos datos
         System.out.println("\n\n\n\t\tPRUEBAS");
         System.out.println("\n\t\tTreeMap");
         String[] operaciones = {
