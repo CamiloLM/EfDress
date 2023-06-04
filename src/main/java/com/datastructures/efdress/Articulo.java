@@ -99,7 +99,7 @@ public class Articulo implements Comparable<Articulo> {
         }
         endTime=System.currentTimeMillis();
         time=endTime-startTime;
-        System.out.println("Total tiempo (ms): "+time);
+        System.out.println("Tiempo de genereración de datos: "+time);
         System.out.println("Añadir "+nprueba+" artículos:");
 
         startTime=System.currentTimeMillis();
@@ -126,7 +126,7 @@ public class Articulo implements Comparable<Articulo> {
         }
         endTime=System.currentTimeMillis();
         time=endTime-startTime;
-        System.out.println("Total tiempo (ms): "+time);
+        System.out.println("Tiempo (ms): "+time);
         return ropaPrueba;
     }
 

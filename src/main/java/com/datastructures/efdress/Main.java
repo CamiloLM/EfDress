@@ -103,7 +103,7 @@ public class Main extends Application{
     public static void medirTiempoFav(int n, String funcion) {
         // Se generan n instancias de la clase artículo aleatoriamente
         Random random = new Random();
-        int casos=1;
+        int casos=100;
         int randomNumber;
         long startTime, endTime, time;
         ArrayList < Integer > ids = new ArrayList < > ();
@@ -536,6 +536,7 @@ public class Main extends Application{
 
     public static void menuPruebas(Scanner scanner) {
         int opcion;
+        Scanner scannerPruebas = new Scanner(System.in);
 
         do {
             System.out.println("\n***** SUBMENÚ PRUEBAS *****");
@@ -549,11 +550,47 @@ public class Main extends Application{
             switch (opcion) {
                 case 1:
                     System.out.println("Has seleccionado: Pruebas ropa");
-                    // TODO: Logica de la funcion para llamar a las pruebas de ropa
+                    String[] array = {"nuevo", "buscarNombre", "buscarId", "eliminar"};
+
+                    System.out.print("¿Cuántas operaciones desea medir por funcionalidad? ");
+                    int casos = scanner.nextInt();
+                    for (int i = 4; i <= 8; i++) {
+                        System.out.print("\n\nNúmero de datos: ");
+                        if (i != 8) {
+                            System.out.println(Math.pow(10, i));
+                        } else {
+                            System.out.println(Math.pow(10, i)/2);
+                        }
+                        for (String str : array) {
+                            if(str!="nuevo") System.out.println("Operación "+str);
+                            if (i != 8) {
+                                medirTiempo((int)Math.pow(10, i), str, casos);
+                            } else {
+                                medirTiempo((int)Math.pow(10, i) / 2, str, casos);
+                            }
+                        }
+                        miRopa.clear();
+                    }
                     break;
                 case 2:
                     System.out.println("Has seleccionado: Pruebas favoritos");
-                    // TODO: Logica de la funcion para llamar a las pruebas de favoritos
+                    String[] array2 = {"nuevo", "buscarId", "eliminar"};
+
+                    System.out.print("Midiendo 100 operaciones por funcionalidad.");
+
+                    for (int i = 4; i <= 5; i++) {
+                        System.out.print("\n\nNúmero de datos: ");
+                        System.out.println(Math.pow(10, i));
+
+                        for (String str : array2) {
+                            System.out.println("Operación "+str);
+
+                            medirTiempoFav((int )Math.pow(10, i), str);
+                            }
+                        miRopa.clear();
+
+                    }
+
                     break;
                 case 3:
                     System.out.println("Volviendo al menú principal...");
@@ -562,8 +599,11 @@ public class Main extends Application{
                     System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
                     break;
             }
+
         } while (opcion != 3);
-    }
+                scannerPruebas.close();
+
+}
 
     public static void main(String[] args) {
         launch();
