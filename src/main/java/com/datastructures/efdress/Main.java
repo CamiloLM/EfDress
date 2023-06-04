@@ -19,6 +19,7 @@ public class Main extends Application{
     private static int size = 0;
     protected static TreeMap<Integer, Articulo> miRopa = new TreeMap<>();
     protected static Favorito favs = Favorito.getInstance();
+    protected static Reciente rec = Reciente.getInstance();
     protected static Conjunto conj = new Conjunto();
 
     public static void medirTiempo(int n, String funcion, int casos) {
@@ -185,7 +186,6 @@ public class Main extends Application{
         boolean salir = false;
         NavigableSet<Integer> navigableSet = miRopa.navigableKeySet();
         Integer currentElement = navigableSet.first();
-
         while (!salir) {
             System.out.println("\nElemento actual: " + findItem(currentElement));
             System.out.println("1. Recorrer un elemento hacia adelante");
@@ -194,6 +194,7 @@ public class Main extends Application{
             System.out.print("Ingrese su opción: ");
 
             int opcion = scanner.nextInt();
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
@@ -252,7 +253,6 @@ public class Main extends Application{
                 return null;
             }
         }
-
         return actual;
     }
 
@@ -273,102 +273,324 @@ public class Main extends Application{
         return miRopa.remove(id);
     }
 
+    public static void menuRopa(Scanner scanner) {
+        int opcionRopa;
+        do {
+            System.out.println("\n***** SUBMENÚ ROPA *****");
+            System.out.println("1. Añadir articulos");
+            System.out.println("2. Generar aleatorio");
+            System.out.println("3. Buscar por ID");
+            System.out.println("4. Buscar por nombre");
+            System.out.println("5. Recorrer 1 a 1");
+            System.out.println("6. Mostrar toda la ropa");
+            System.out.println("7. Actualizar articulo");
+            System.out.println("8. Eliminar articulo");
+            System.out.println("9. Eliminar toda la ropa");
+            System.out.println("10. Volver al menú principal");
+            System.out.print("Selecciona una opción: ");
+            opcionRopa = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcionRopa) {
+                case 1:
+                    System.out.println("Has seleccionado: Añadir ropa");
+                    String[] arr = userInputUtil(scanner);
+                    System.out.println(newItem(size, arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado: Generar ropa aleatoria");
+                    // TODO: Funcion para generar articulos aleatorios, si no hace falta eliminar este caso y reajustar el while
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado: Buscar por ID");
+                    System.out.print("Ingrese el id que quiere buscar");
+                    int n = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println(findItem(n));
+                    break;
+                case 4:
+                    System.out.println("Has seleccionado: Buscar por nombre");
+                    System.out.print("Ingrese el nombre que quiere buscar");
+                    String entry = scanner.nextLine();
+                    System.out.println(findItem(entry));
+                    break;
+                case 5:
+                    System.out.println("Has seleccionado: Recorrer");
+                    if (miRopa.size() > 0) {
+                        recorrerRopa(scanner);
+                    } else {
+                        System.out.println("No hay ropa agregada");
+                    }
+                    break;
+                case 6:
+                    System.out.println("Has seleccionado: Mostrar");
+                    if (miRopa.size() > 0) {
+                        System.out.println(miRopa);
+                    } else {
+                        System.out.println("No hay ropa agregada");
+                    }
+                    break;
+                case 7:
+                    System.out.println("Has seleccionado: Actualizar");
+                    System.out.print("Ingrese el id del articulo que va a modificar");
+                    int m = scanner.nextInt();
+                    scanner.nextLine();
+                    String[] updt = userInputUtil(scanner);
+                    System.out.println(updateItem(m, updt[0], updt[1], updt[2], updt[3], updt[4], updt[5]));
+                    break;
+                case 8:
+                    System.out.println("Has seleccionado: Eliminar");
+                    System.out.print("Ingrese el id del articulo que va a eliminar");
+                    int e = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println(removeItem(e));
+                    break;
+                case 9:
+                    System.out.println("Has seleccionado: Eliminar toda la ropa");
+                    miRopa.clear();
+                    break;
+                case 10:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
+                    break;
+            }
+        } while (opcionRopa != 10);
+    }
+
+    public static void menuFavoritos(Scanner scanner) {
+        int opcion;
+
+        do {
+            System.out.println("\n***** SUBMENÚ FAVORITOS *****");
+            System.out.println("1. Buscar favorito");
+            System.out.println("2. Añadir favorito");
+            System.out.println("3. Eliminar favorito");
+            System.out.println("4. Mostrar favoritos");
+            System.out.println("5. Limpiar favoritos");
+            System.out.println("6. Volver al menú principal");
+            System.out.print("Selecciona una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Has seleccionado: Buscar en Favoritos");
+                    System.out.print("Ingrese el id del articulo que quiere buscar");
+                    int b = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println(findItem(favs.getFav(b)));
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado: Añadir a Favoritos");
+                    System.out.print("Ingrese el id del articulo que quiere añadir");
+                    int a = scanner.nextInt();
+                    scanner.nextLine();
+                    favs.saveFavorite(a);
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado: Eliminar de Favoritos");
+                    System.out.print("Ingrese el id del articulo que quiere eliminar");
+                    int e = scanner.nextInt();
+                    scanner.nextLine();
+                    favs.deleteFavorite(e);
+                    break;
+                case 4:
+                    System.out.println("Has seleccionado: Mostrar Favoritos");
+                    Integer[] favoritos = favs.getAllFavs();
+                    for (Integer id: favoritos) {
+                        System.out.print(id + ", ");
+                    }
+                    break;
+                case 5:
+                    System.out.println("Has seleccionado: Limpiar Favoritos");
+                    favs.deleteAll();
+                    break;
+                case 6:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
+                    break;
+            }
+        } while (opcion != 6);
+
+    }
+
+    public static void menuConjuntos(Scanner scanner) {
+        int opcion;
+
+        do {
+            System.out.println("\n***** SUBMENÚ CONJUNTOS *****");
+            System.out.println("1. Buscar conjuntos");
+            System.out.println("2. Añadir conjuntos");
+            System.out.println("3. Eliminar conjuntos");
+            System.out.println("4. Limpiar conjuntos");
+            System.out.println("5. Mostrar conjuntos");
+            System.out.println("6. Volver al menú principal");
+            System.out.print("Selecciona una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Has seleccionado: Buscar en Conjuntos");
+                    System.out.print("Ingrese el id del articulo que quiere buscar");
+                    int b = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.println(conj.getObject(b));
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado: Añadir a Conjuntos");
+                    System.out.print("Ingrese el id del articulo que quiere añadir");
+                    int a = scanner.nextInt();
+                    scanner.nextLine();
+                    conj.add(findItem(a));
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado: Eliminar de Conjuntos");
+                    System.out.print("Ingrese el id del articulo que quiere eliminar");
+                    int e = scanner.nextInt();
+                    scanner.nextLine();
+                    conj.remove(findItem(e));
+                    break;
+                case 4:
+                    System.out.println("Has seleccionado: Limpiar Conjuntos");
+                    conj.removeAll();
+                    break;
+                case 5:
+                    System.out.println("Has seleccionado: Mostrar Conjuntos");
+                    if (!conj.isEmpty()) {
+                        System.out.println(conj);
+                    } else {
+                        System.out.println("El conjunto no tiene articulos");
+                    }
+                    break;
+                case 6:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
+                    break;
+            }
+        } while (opcion != 6);
+
+    }
+
+    public static void menuRecientes(Scanner scanner) {
+        int opcion;
+
+        do {
+            System.out.println("\n***** SUBMENÚ RECIENTES *****");
+            System.out.println("1. Añadir");
+            System.out.println("2. Mostrar");
+            System.out.println("3. Limpiar");
+            System.out.println("4. Volver al menú principal");
+            System.out.print("Selecciona una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Has seleccionado: Añadir a Recientes");
+                    System.out.print("Ingrese el id del articulo que quiere añadir");
+                    int a = scanner.nextInt();
+                    scanner.nextLine();
+                    rec.addRecent(a);
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado: Mostrar de Recientes");
+                    System.out.println(rec);
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado: Limpiar Recientes");
+                    rec.clearHistory();
+                    break;
+                case 4:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
+                    break;
+            }
+        } while (opcion != 4);
+
+    }
+
+    public static void menuPruebas(Scanner scanner) {
+        int opcion;
+
+        do {
+            System.out.println("\n***** SUBMENÚ PRUEBAS *****");
+            System.out.println("1. Pruebas ropa");
+            System.out.println("2. Pruebas favoritos");
+            System.out.println("3. Volver al menú principal");
+            System.out.print("Selecciona una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcion) {
+                case 1:
+                    System.out.println("Has seleccionado: Pruebas ropa");
+                    // TODO: Logica de la funcion para llamar a las pruebas de ropa
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado: Pruebas favoritos");
+                    // TODO: Logica de la funcion para llamar a las pruebas de favoritos
+                    break;
+                case 3:
+                    System.out.println("Volviendo al menú principal...");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
+                    break;
+            }
+        } while (opcion != 3);
+    }
 
     public static void main(String[] args) {
         launch();
+
         Scanner scanner = new Scanner(System.in);
+        int opcion;
 
-        /*
-        System.out.println("\nCreando un nuevo objeto por consola");
-        String[] arr = userInputUtil(scanner);
-        System.out.println(newItem(size, arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
-         */
+        do {
+            System.out.println("***** MENÚ *****");
+            System.out.println("1. Ropa");
+            System.out.println("2. Favoritos");
+            System.out.println("3. Recientes");
+            System.out.println("4. Conjuntos");
+            System.out.println("5. Mediciones");
+            System.out.println("6. Salir");
+            System.out.print("Selecciona una opción: ");
+            opcion = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.println("\nAgregando más objetos por codigo");
-        newItem(size, "Abrigo lindo", "Lana", "Casual", "Abrigo", "Chaquetas", "");
-        newItem(size, "Botas rockeras", "Cuero", "Casual", "Calzado", "Botas", "");
-        newItem(size, "Pantalonzote", "Seda", "Formal", "Pantalon", "Pantalones", "");
-
-        System.out.println("\nMirar toda la ropa");
-        System.out.println(miRopa);
-
-        System.out.println("\nRecorrer la ropa elemento por elemento");
-        //recorrerRopa(scanner);
-
-        System.out.println("\nBuscar por nombre");
-        System.out.println(findItem("lindo"));
-
-        System.out.println("\nBuscar por ID");
-        System.out.println(findItem(1));
-
-        System.out.println("\nAcutalizar objeto");
-        System.out.println(updateItem(1, "Sombrero Fachero", "Poliester", "Fiesta", "Sombrero", "Sombrero", ""));
-
-        System.out.println("\nEliminar objeto");
-        System.out.println(removeItem(2));
-
-        System.out.println("\nMirar toda la ropa");
-        System.out.println(miRopa);
-        
-        // Favoritos
-        favs.saveFavorite(miRopa.get(0).getId());
-        favs.saveFavorite(miRopa.get(1).getId());
-        
-        //Obteniendo favorito por id
-        System.out.println(findItem(favs.getFav(0)));
-        System.out.println(findItem(favs.getFav(1)));
-
-        //Este item no existe
-        System.out.println(findItem(favs.getFav(9)));
-
-        //Obteniendo todos los favoritos
-        Integer[] favoritos = favs.getAllFavs();
-        for (Integer id: favoritos) {
-            System.out.print(id + ", ");
-        }
-        //Eliminando favorito
-        System.out.println();
-        favs.deleteFavorite(1);
-        favs.deleteFavorite(2);
-        System.out.println(favs);
-        //Eliminando todos los favoritos
-        favs.deleteAll();
-        System.out.println(favs);
-        
-        
-        // Conjunto de ropa
-        miRopa.clear();
-        newItem(0, "Cacucha", "Poliester", "Casual", "Sombrero", "Gorra", "");
-        newItem(1, "Abrigo lindo", "Lana", "Casual", "Abrigo", "Chaquetas", "");
-        newItem(2, "Camisa comoda", "Lana", "Diario", "TopHombre", "Camisetas", "");
-        newItem(3, "Botas rockeras", "Cuero", "Casual", "Calzado", "Botas", "");
-        newItem(4, "Pantalonzote", "Seda", "Formal", "Pantalon", "Pantalones", "");
-        newItem(5, "Pijama Pikachu", "Algodon", "Dormir", "Entero", "Pijamas", "");
-
-
-        System.out.println("\nAñadiendo por articulo");
-        conj.add(findItem(0));
-        conj.add(findItem(1));
-        conj.add(findItem(2));
-        
-        System.out.println("\nAñadiendo por indice");
-        conj.add(5,3);
-        conj.add(4,4);
-        conj.add(3,5);
-        
-        System.out.println(conj);
-        
-        System.out.println("\nEliminando por articulo");
-        conj.remove(findItem(1));
-        
-        System.out.println("\nEliminando por articulo");
-        conj.remove(3);
-        
-        System.out.println(conj);
-        
-        System.out.println(conj.isEmpty());
-        conj.removeAll();
-        System.out.println(conj.isEmpty());
+            switch (opcion) {
+                case 1:
+                    menuRopa(scanner);
+                    break;
+                case 2:
+                    menuFavoritos(scanner);
+                    break;
+                case 3:
+                    menuRecientes(scanner);
+                    break;
+                case 4:
+                    menuConjuntos(scanner);
+                    break;
+                case 5:
+                    menuPruebas(scanner);
+                    break;
+                case 6:
+                    System.out.println("¡Hasta luego!");
+                    break;
+                default:
+                    System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
+                    break;
+            }
+        } while (opcion != 6);
 
         /*
         // Pruebas con muchos datos
@@ -436,113 +658,13 @@ public class Main extends Application{
         */
     }
 
-
     @Override
     public void start(Stage stage) throws IOException {
-        // Scene new item (type)
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-
-        // Scene new Item (Body part)
-       /* final ComboBox addItemC1 = new ComboBox();
-        addItemC1.getItems().addAll(
-                "Upper Body (Tops, coats/jackets, etc.)",
-                "Lower Body (Trousers, skirts, etc.)",
-                "Upper & lower body (dress, jumpsuit, etc.)",
-                "Footwear",
-                "Headwear",
-                "Accesory"
-        );
-        addItemC1.setOnAction((event) -> {
-            addItemC2.getItems().clear();
-            int selectedIndex1 = addItemC1.getSelectionModel().getSelectedIndex();
-            Object selectedItem = addItemC1.getSelectionModel().getSelectedItem();
-            System.out.println("Selection made: [" + selectedIndex1 + "] " + selectedItem);
-            System.out.println("   ComboBox.getValue(): " + addItemC1.getValue());
-            switch (selectedIndex1) {
-                case 0:
-                    addItemC2.getItems().addAll(
-                            "Coat",
-                            "Jacket",
-                            "Vest",
-                            "Shirt",
-                            "T-shirt",
-                            "Other type of top"
-                    );
-                    break;
-
-                case 1:
-                    addItemC2.getItems().addAll(
-                            "Trouser",
-                            "Skirt",
-                            "Short",
-                            "Jeans",
-                            "Other type of pants"
-                    );
-                    break;
-
-                case 2:
-                    addItemC2.getItems().addAll(
-                            "Dress",
-                            "Overall",
-                            "Swimsuit",
-                            "Jumpsuit"
-                    );
-                    break;
-
-                case 3:
-                    addItemC2.getItems().addAll(
-                            "Boots",
-                            "Sneakers",
-                            "Sandals",
-                            "Other dress Shoes"
-                    );
-                    break;
-                case 4:
-                    addItemC2.getItems().addAll(
-                            "Caps",
-                            "Beanies",
-                            "Other hats"
-                    );
-                    break;
-            }
-
-            stage.setScene(newItScene2);
-        });
-
-        Scene newItScene1 = new Scene(new Group(), 500, 400);
-
-        EventHandler<ActionEvent> gobackEvent = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e) {
-                addItemC2.getItems().clear();
-                stage.setScene(newItScene2);
-
-            }
-        };
-
-        // when button is pressed
-        prevSceneB.setOnAction(gobackEvent);
-        prevSceneB.setOnAction(e -> stage.setScene(newItScene1));
-        GridPane grid1 = new GridPane();
-        grid1.setVgap(4);
-        grid1.setHgap(10);
-        grid1.setPadding(new Insets(5, 5, 5, 5));
-        grid1.add(new Label("What kind of item is it?"), 0, 0);
-        grid1.add(addItemC1, 1, 0);
-        Group root1 = (Group) newItScene1.getRoot();
-        root1.getChildren().add(grid1);
-
-        //Main Scene
-        //Label label2= new Label("This is the second scene");
-        Button addItemb = new Button("Add Item");
-        addItemb.setOnAction(e -> stage.setScene(newItScene1));
-        VBox layout2 = new VBox(20);
-        layout2.getChildren().addAll(addItemb);
-        Scene mainScene = new Scene(layout2, 500, 400);
-*/
     }
 }

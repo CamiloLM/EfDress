@@ -103,6 +103,17 @@ public class Conjunto {
     public int[] getConjunto() {
         return conjunto;
     }
+
+    public Articulo getObject(int id) {
+        if (id >= 0) {
+            for (int el : conjunto) {
+                if ( el == id) {
+                    return findItem(el);
+                }
+            }
+        }
+        return null;
+    }
     
     @Override
     public String toString() {
