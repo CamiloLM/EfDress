@@ -37,11 +37,13 @@ public class Favorito {
      Para eliminar algun favorito se podra hacer uno por uno o también
      se podran eliminar todos los favoritos actuales
       */
-     public void deleteFavorite(int id){
+     public boolean deleteFavorite(int id){
          if(favorites.contains(id)){
              deletedFavs.push(id);
              favorites.removeFirstOccurrence(id);
+             return true;
          }
+         return false;
      }
 
      public void deleteAll(){

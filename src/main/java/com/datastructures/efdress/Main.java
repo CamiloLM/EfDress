@@ -380,7 +380,13 @@ public class Main extends Application{
                     System.out.print("Ingrese el id del articulo que quiere buscar");
                     int b = scanner.nextInt();
                     scanner.nextLine();
-                    System.out.println(findItem(favs.getFav(b)));
+                    if(favs.getFav(b)==-1){
+                        System.out.println("Este articulo no se encuentra en favoritos");
+                    }
+                    else {
+                        System.out.println(findItem(favs.getFav(b)));
+                    }
+
                     break;
                 case 2:
                     System.out.println("Has seleccionado: Añadir a Favoritos");
@@ -394,7 +400,12 @@ public class Main extends Application{
                     System.out.print("Ingrese el id del articulo que quiere eliminar");
                     int e = scanner.nextInt();
                     scanner.nextLine();
-                    favs.deleteFavorite(e);
+                    if(favs.deleteFavorite(e)){
+                        System.out.println(("Articulo eliminado"));
+                    }
+                    else{
+                        System.out.println("Este articulo no existe");
+                    }
                     break;
                 case 4:
                     System.out.println("Has seleccionado: Mostrar Favoritos");
