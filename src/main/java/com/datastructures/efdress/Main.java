@@ -278,15 +278,14 @@ public class Main extends Application{
         do {
             System.out.println("\n***** SUBMENÚ ROPA *****");
             System.out.println("1. Añadir articulos");
-            System.out.println("2. Generar aleatorio");
-            System.out.println("3. Buscar por ID");
-            System.out.println("4. Buscar por nombre");
-            System.out.println("5. Recorrer 1 a 1");
-            System.out.println("6. Mostrar toda la ropa");
-            System.out.println("7. Actualizar articulo");
-            System.out.println("8. Eliminar articulo");
-            System.out.println("9. Eliminar toda la ropa");
-            System.out.println("10. Volver al menú principal");
+            System.out.println("2. Buscar por ID");
+            System.out.println("3. Buscar por nombre");
+            System.out.println("4. Recorrer 1 a 1");
+            System.out.println("5. Mostrar toda la ropa");
+            System.out.println("6. Actualizar articulo");
+            System.out.println("7. Eliminar articulo");
+            System.out.println("8. Eliminar toda la ropa");
+            System.out.println("9. Volver al menú principal");
             System.out.print("Selecciona una opción: ");
             opcionRopa = scanner.nextInt();
             scanner.nextLine();
@@ -298,23 +297,19 @@ public class Main extends Application{
                     System.out.println(newItem(size, arr[0], arr[1], arr[2], arr[3], arr[4], arr[5]));
                     break;
                 case 2:
-                    System.out.println("Has seleccionado: Generar ropa aleatoria");
-                    // TODO: Funcion para generar articulos aleatorios, si no hace falta eliminar este caso y reajustar el while
-                    break;
-                case 3:
                     System.out.println("Has seleccionado: Buscar por ID");
                     System.out.print("Ingrese el id que quiere buscar");
                     int n = scanner.nextInt();
                     scanner.nextLine();
                     System.out.println(findItem(n));
                     break;
-                case 4:
+                case 3:
                     System.out.println("Has seleccionado: Buscar por nombre");
                     System.out.print("Ingrese el nombre que quiere buscar");
                     String entry = scanner.nextLine();
                     System.out.println(findItem(entry));
                     break;
-                case 5:
+                case 4:
                     System.out.println("Has seleccionado: Recorrer");
                     if (miRopa.size() > 0) {
                         recorrerRopa(scanner);
@@ -322,7 +317,7 @@ public class Main extends Application{
                         System.out.println("No hay ropa agregada");
                     }
                     break;
-                case 6:
+                case 5:
                     System.out.println("Has seleccionado: Mostrar");
                     if (miRopa.size() > 0) {
                         System.out.println(miRopa);
@@ -330,7 +325,7 @@ public class Main extends Application{
                         System.out.println("No hay ropa agregada");
                     }
                     break;
-                case 7:
+                case 6:
                     System.out.println("Has seleccionado: Actualizar");
                     System.out.print("Ingrese el id del articulo que va a modificar");
                     int m = scanner.nextInt();
@@ -338,25 +333,25 @@ public class Main extends Application{
                     String[] updt = userInputUtil(scanner);
                     System.out.println(updateItem(m, updt[0], updt[1], updt[2], updt[3], updt[4], updt[5]));
                     break;
-                case 8:
+                case 7:
                     System.out.println("Has seleccionado: Eliminar");
                     System.out.print("Ingrese el id del articulo que va a eliminar");
                     int e = scanner.nextInt();
                     scanner.nextLine();
                     System.out.println(removeItem(e));
                     break;
-                case 9:
+                case 8:
                     System.out.println("Has seleccionado: Eliminar toda la ropa");
                     miRopa.clear();
                     break;
-                case 10:
+                case 9:
                     System.out.println("Volviendo al menú principal...");
                     break;
                 default:
                     System.out.println("Opción inválida. Por favor, selecciona una opción válida.");
                     break;
             }
-        } while (opcionRopa != 10);
+        } while (opcionRopa != 9);
     }
 
     public static void menuFavoritos(Scanner scanner) {
