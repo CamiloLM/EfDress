@@ -399,9 +399,14 @@ public class Main extends Application{
                 case 4:
                     System.out.println("Has seleccionado: Mostrar Favoritos");
                     Integer[] favoritos = favs.getAllFavs();
-                    for (Integer id: favoritos) {
-                        System.out.print(id + ", ");
+                    try{
+                        for (Integer id: favoritos) {
+                            System.out.print(id + ", ");
+                        }
+                    }catch (NullPointerException np){
+                        System.out.println("No se han seleccionado favoritos");
                     }
+
                     break;
                 case 5:
                     System.out.println("Has seleccionado: Limpiar Favoritos");
