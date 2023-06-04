@@ -83,19 +83,6 @@ public class Main extends Application{
 
         case ("nuevo"):
             miRopa = generarDatosPrueba(n, casos);
-            /*
-                           startTime = System.currentTimeMillis();
-
-                            for (int i = 0; i < 100; i++) {
-                                proofItem = new Articulo(n+i, "Camiseta verde gym", "Lycra", "Deportiva", "TopMujer", "Camisetas", "url");
-                                miRopa.put(n+i, proofItem);
-                            }
-                            endTime = System.currentTimeMillis();
-                            System.out.print("Tamaño actual : " + miRopa.size()+ ". ");
-                            time = endTime - startTime;
-
-                            System.out.println("Total: " + time);
-            */
             break;
         }
     }
@@ -642,71 +629,6 @@ public class Main extends Application{
                     break;
             }
         } while (opcion != 6);
-
-        /*
-        // Pruebas con muchos datos
-        System.out.println("\n\n\n\t\tPRUEBAS");
-        System.out.println("\n\t\tTreeMap");
-        String[] operaciones = {
-            "nuevo",
-            "buscarNombre",
-            "buscarId",
-            "eliminar"
-        };
-        int casos = 100;
-
-        for (int i = 4; i < 8; i++) {
-            System.out.println("\n\n\nInitial size: " + miRopa.size());
-
-            //if (i == 8) { miRopa = generarDatosPrueba((int)(Math.pow(10,i)/2));}
-            //else {miRopa = generarDatosPrueba((int)Math.pow(10,i));}
-
-            for (String operacion: operaciones) {
-                if (i == 8) {
-                    System.out.println("\n" + operacion + ":");
-
-                    medirTiempo((int)(Math.pow(10, i) / 2), operacion, casos);
-                } else {
-                    System.out.println("\n" + operacion + ": ");
-
-                    medirTiempo((int) Math.pow(10, i), operacion, casos);
-                } //  }
-
-            }
-            miRopa.clear();
-            System.gc();
-
-        }
-
-        System.out.println("\n\t\tFavoritos (Linked List)");
-        String[] op = {
-            "nuevo",
-            "buscarId",
-            "eliminar"
-        };
-        for (int i = 4; i < 8; i++) {
-            if (i == 8) System.out.println("Prueba con " + (int)(Math.pow(10, i) / 2));
-            else {
-                System.out.println("Prueba con " + (int) Math.pow(10, i));
-
-            }
-            for (String operacion: op) {
-                if (i == 8) {
-                    System.out.println("\n" + operacion + ":");
-
-                    medirTiempoFav((int)(Math.pow(10, i) / 2), operacion);
-                } else {
-                    System.out.println("\n" + operacion + ": ");
-
-                    medirTiempoFav((int) Math.pow(10, i), operacion);
-                } //  }
-
-            }
-            favs.deleteAll();
-            System.gc();
-
-        }
-        */
     }
 
     @Override
