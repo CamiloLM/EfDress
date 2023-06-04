@@ -583,12 +583,10 @@ public class Main extends Application{
             }
 
         } while (opcion != 3);
-                scannerPruebas.close();
 
 }
 
     public static void main(String[] args) {
-        launch();
 
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -629,7 +627,10 @@ public class Main extends Application{
                     break;
             }
         } while (opcion != 6);
+
+        launch();
     }
+
 
     @Override
     public void start(Stage stage) throws IOException {
